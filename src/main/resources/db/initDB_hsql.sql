@@ -1,12 +1,12 @@
 DROP TABLE dishs IF EXISTS;
-DROP TABLE menus IF EXISTS;
+-- DROP TABLE menus IF EXISTS;
 DROP TABLE restaurants IF EXISTS;
 DROP TABLE user_roles IF EXISTS;
-DROP TABLE votess IF EXISTS;
+DROP TABLE votes IF EXISTS;
 DROP TABLE users IF EXISTS;
 -- DROP SEQUENCE global_seq IF EXISTS;
 
--- CREATE SEQUENCE GLOBAL_SEQ AS INTEGER START WITH 100000;
+--  CREATE SEQUENCE USERS_SEQ AS INTEGER START WITH 1000;
 
 CREATE TABLE users
 (
@@ -50,9 +50,10 @@ CREATE TABLE dishs
   name             VARCHAR(255)            NOT NULL,
   restaurant_id INTEGER      NOT NULL,
   price         INTEGER NOT NULL,
+  enabled          BOOLEAN DEFAULT TRUE    NOT NULL,
   FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE CASCADE
 );
-CREATE UNIQUE INDEX dishs_unique_name_idx ON dishs (name);
+CREATE UNIQUE INDEX dishs_unique_name_restaurant_id_idx ON dishs (name, restaurant_id);
 
 CREATE TABLE votes
 (
