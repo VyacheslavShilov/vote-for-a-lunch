@@ -9,7 +9,7 @@ import javax.persistence.*;
 @MappedSuperclass
 @Access(AccessType.FIELD)
 public abstract class AbstractBaseEntity implements Persistable<Integer> {
-    public static final int START_SEQ = 1000;
+   // public static final int START_SEQ = 1000;
 
 
 

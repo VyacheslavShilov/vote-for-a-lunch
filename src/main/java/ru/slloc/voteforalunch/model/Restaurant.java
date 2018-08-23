@@ -1,13 +1,20 @@
 package ru.slloc.voteforalunch.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "restaurants", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "uniqueConstraints_unique_name_idx")})
 public class Restaurant extends AbstractNamedEntity{
+    public static final int START_RESTAURANT_SEQ = 1000;
+
+    @Id
+    @SequenceGenerator(name = "RESTAURANTS_SEQ", sequenceName = "RESTAURANTS_SEQ", allocationSize = 1, initialValue = START_RESTAURANT_SEQ)
+    //    @Column(name = "id", unique = true, nullable = false, columnDefinition = "integer default nextval('global_seq')")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RESTAURANTS_SEQ")
+
+//  See https://hibernate.atlassian.net/browse/HHH-3718 and https://hibernate.atlassian.net/browse/HHH-12034
+//  Proxy initialization when accessing its identifier managed now by JPA_PROXY_COMPLIANCE setting
+    private Integer id;
 
     @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
     private boolean enabled = true;
@@ -23,8 +30,17 @@ public class Restaurant extends AbstractNamedEntity{
 
 
     public Restaurant(Integer id, String name, boolean enabled) {
-        super(id, name);
+        super(name);
+        this.id = id;
         this.enabled = enabled;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public boolean isEnabled() {

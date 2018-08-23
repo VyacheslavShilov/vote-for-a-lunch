@@ -5,6 +5,11 @@ DELETE FROM user_roles;
 DELETE FROM votes;
 DELETE FROM users;
 
+ALTER SEQUENCE USERS_SEQ RESTART WITH 1000;
+ALTER SEQUENCE RESTAURANTS_SEQ RESTART WITH 1000;
+ALTER SEQUENCE DISHS_SEQ RESTART WITH 1000;
+ALTER SEQUENCE VOTES_SEQ RESTART WITH 1000;
+
 INSERT INTO users (name, email, password) VALUES
   ('User', 'user@yandex.ru', 'password'),
   ('User2', 'user2@yandex.ru', 'password2'),
@@ -25,11 +30,11 @@ INSERT INTO RESTAURANTS (NAME) values
   ('2018-04-09 09:00:00', 1001),
   ('2018-04-10 09:00:00', 1001);*/
 
-INSERT INTO DISHS (DATE_TIME, NAME, RESTAURANT_ID, PRICE) VALUES
-  ('2018-04-09 09:00:00', 'Каша манная', 1000, 80),
-  ('2018-04-09 09:00:00', 'Греческий салат', 1001, 150),
-  ('2018-04-10 09:00:00', 'Каша гречневая', 1000, 100),
-  ('2018-04-10 09:00:00', 'Омары', 1001, 400);
+INSERT INTO DISHS ( NAME, RESTAURANT_ID, PRICE) VALUES
+  ('Каша манная', 1000, 80),
+  ('Греческий салат', 1001, 150),
+  ('Каша гречневая', 1000, 100),
+  ('Омары', 1001, 400);
 
 INSERT INTO VOTES (DATE_TIME, USER_ID, RESTAURANT_ID) VALUES
   ('2018-04-09 09:00:00', 1000, 1000),
