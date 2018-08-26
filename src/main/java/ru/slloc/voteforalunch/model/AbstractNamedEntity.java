@@ -1,11 +1,12 @@
 package ru.slloc.voteforalunch.model;
 
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @MappedSuperclass
+@Access(AccessType.FIELD)
 public abstract class AbstractNamedEntity{
 
     @NotBlank
