@@ -82,6 +82,10 @@ public class Vote {
         return restaurant;
     }
 
+    public boolean isNew() {
+        return this.id == null;
+    }
+
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
     }

@@ -29,6 +29,8 @@ public abstract class AbstractNamedEntity{
         return this.name;
     }
 
+
+
     @Override
     public String toString() {
         return String.format("Entity %s ('%s')", getClass().getName(), name);

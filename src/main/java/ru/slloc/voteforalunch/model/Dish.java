@@ -77,6 +77,10 @@ public class Dish extends AbstractNamedEntity {
         return enabled;
     }
 
+    public boolean isNew() {
+        return this.id == null;
+    }
+
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
