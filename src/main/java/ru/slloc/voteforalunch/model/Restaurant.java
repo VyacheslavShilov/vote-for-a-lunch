@@ -1,5 +1,7 @@
 package ru.slloc.voteforalunch.model;
 
+import org.hibernate.Hibernate;
+
 import javax.persistence.*;
 
 @Entity
@@ -35,6 +37,13 @@ public class Restaurant extends AbstractNamedEntity{
         this.enabled = enabled;
     }
 
+    public Restaurant(Integer id, String name) {
+        super(name);
+        this.id = id;
+        this.enabled = true;
+
+    }
+
     public Integer getId() {
         return id;
     }
@@ -65,5 +74,22 @@ public class Restaurant extends AbstractNamedEntity{
                 ", name='" + name + '\'' +
                 ", enabled=" + enabled +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || !getClass().equals(Hibernate.getClass(o))) {
+            return false;
+        }
+        Restaurant that = (Restaurant) o;
+        return id != null && id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id == null ? 0 : id;
     }
 }
