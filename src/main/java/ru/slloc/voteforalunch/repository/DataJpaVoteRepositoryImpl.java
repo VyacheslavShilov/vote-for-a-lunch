@@ -1,10 +1,12 @@
 package ru.slloc.voteforalunch.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import ru.slloc.voteforalunch.model.Vote;
 
 import java.util.List;
 
+@Repository
 public class DataJpaVoteRepositoryImpl implements VoteRepository{
 
     @Autowired
