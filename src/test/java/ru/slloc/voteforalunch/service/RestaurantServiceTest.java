@@ -1,18 +1,16 @@
 package ru.slloc.voteforalunch.service;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import ru.slloc.voteforalunch.UserTestData;
 import ru.slloc.voteforalunch.model.Restaurant;
 import ru.slloc.voteforalunch.util.exception.NotFoundException;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.slloc.voteforalunch.RestaurantTestData.*;
-import static ru.slloc.voteforalunch.UserTestData.ADMIN;
-import static ru.slloc.voteforalunch.UserTestData.USER2;
-import static ru.slloc.voteforalunch.UserTestData.USER_ID;
 
 public class RestaurantServiceTest extends AbstractServiceTest {
 
@@ -33,14 +31,15 @@ public class RestaurantServiceTest extends AbstractServiceTest {
         assertMatch(service.getAll(), RESTAURANT1);
     }
 
-    @Test(expected = DataAccessException.class)
+    @Test
     public void duplicateNameCreate() throws Exception{
-        service.create(new Restaurant(null, RESTAURANT2.getName()));
+      //  service.create(new Restaurant(null, RESTAURANT2.getName()));
+        assertThrows(DataAccessException.class, () -> service.create(new Restaurant(null, RESTAURANT2.getName())));
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test
     public void notFoundDelete() throws Exception {
-        service.delete(1);
+       assertThrows(NotFoundException.class, () ->  service.delete(1));
     }
 
     @Test
@@ -49,9 +48,9 @@ public class RestaurantServiceTest extends AbstractServiceTest {
         assertMatch(restaurant, RESTAURANT1);
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test
     public void getNotFound() throws Exception {
-        service.get(1);
+        assertThrows(NotFoundException.class, () ->  service.get(1));
     }
 
     @Test

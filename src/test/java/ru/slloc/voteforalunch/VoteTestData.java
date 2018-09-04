@@ -1,27 +1,16 @@
 package ru.slloc.voteforalunch;
 
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.slloc.voteforalunch.model.Vote;
-import ru.slloc.voteforalunch.service.RestaurantService;
-import ru.slloc.voteforalunch.service.UserService;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
 
 import static java.time.LocalDateTime.of;
+import static org.assertj.core.api.Assertions.assertThat;
 import static ru.slloc.voteforalunch.RestaurantTestData.RESTAURANT1;
 import static ru.slloc.voteforalunch.RestaurantTestData.RESTAURANT2;
-import static ru.slloc.voteforalunch.UserTestData.ADMIN;
-import static ru.slloc.voteforalunch.UserTestData.USER;
-import static ru.slloc.voteforalunch.UserTestData.USER2;
+import static ru.slloc.voteforalunch.UserTestData.*;
 import static ru.slloc.voteforalunch.model.Vote.START_VOTE_SEQ;
 
 

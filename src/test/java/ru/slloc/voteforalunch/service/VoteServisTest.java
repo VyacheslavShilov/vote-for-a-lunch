@@ -1,15 +1,16 @@
 package ru.slloc.voteforalunch.service;
 
-import org.junit.Assume;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.slloc.voteforalunch.model.Vote;
 import ru.slloc.voteforalunch.util.exception.NotFoundException;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import static ru.slloc.voteforalunch.UserTestData.ADMIN_ID;
-import static ru.slloc.voteforalunch.VoteTestData.*;
 import static ru.slloc.voteforalunch.UserTestData.USER_ID;
-import static ru.slloc.voteforalunch.VoteTestData.VOTE1_ID;
+import static ru.slloc.voteforalunch.VoteTestData.*;
 
 public class VoteServisTest extends AbstractServiceTest {
 
@@ -22,10 +23,10 @@ public class VoteServisTest extends AbstractServiceTest {
         assertMatch(service.getAll(USER_ID), VOTE4);
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test
     public void deleteNotFound() throws Exception {
        // thrown.expect(NotFoundException.class);
-        service.delete(VOTE1_ID, 1);
+        assertThrows(NotFoundException.class, () -> service.delete(VOTE1_ID, 1));
     }
 
     @Test
@@ -41,10 +42,10 @@ public class VoteServisTest extends AbstractServiceTest {
         assertMatch(actual, VOTE3);
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test
     public void getNotFound() throws Exception {
         // thrown.expect(NotFoundException.class);
-        service.delete(VOTE1_ID, ADMIN_ID);
+        assertThrows(NotFoundException.class, () -> service.get(VOTE1_ID, ADMIN_ID));
     }
 
     @Test
@@ -54,10 +55,10 @@ public class VoteServisTest extends AbstractServiceTest {
         assertMatch(service.get(VOTE1_ID, USER_ID), updated);
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test
     public void updateNotFound() throws Exception {
         // thrown.expect(NotFoundException.class);
-        service.update(VOTE1, ADMIN_ID);
+        assertThrows(NotFoundException.class, () -> service.update(VOTE1, ADMIN_ID));
     }
 
     @Test

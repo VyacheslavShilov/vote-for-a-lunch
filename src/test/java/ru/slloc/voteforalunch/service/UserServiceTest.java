@@ -1,22 +1,17 @@
 package ru.slloc.voteforalunch.service;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit4.SpringRunner;
 import ru.slloc.voteforalunch.model.Role;
 import ru.slloc.voteforalunch.model.User;
 import ru.slloc.voteforalunch.util.exception.NotFoundException;
-
 
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.slloc.voteforalunch.UserTestData.*;
 
 public class UserServiceTest extends AbstractServiceTest{
@@ -39,14 +34,21 @@ public class UserServiceTest extends AbstractServiceTest{
         assertMatch(service.getAll(), ADMIN, USER2);
     }
 
-    @Test(expected = DataAccessException.class)
+   // @Test(expected = DataAccessException.class)
+    @Test
     public void duplicateMailCreate() throws Exception {
-        service.create(new User(null, "Duplicate", "user@yandex.ru", "newPass", Role.ROLE_USER));
+       // service.create(new User(null, "Duplicate", "user@yandex.ru", "newPass", Role.ROLE_USER));
+        assertThrows(DataAccessException.class, () ->
+                service.create(new User(null, "Duplicate", "user@yandex.ru", "newPass", Role.ROLE_USER)));
     }
 
-    @Test(expected = NotFoundException.class)
+  //  @Test(expected = NotFoundException.class)
+  @Test
     public void notFoundDelete() throws Exception {
-        service.delete(1);
+     //   service.delete(1);
+      assertThrows(NotFoundException.class, () ->
+              service.delete(1));
+
     }
 
     @Test
@@ -55,9 +57,10 @@ public class UserServiceTest extends AbstractServiceTest{
         assertMatch(user, USER);
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test
     public void getNotFound() throws Exception {
-        service.get(1);
+        assertThrows(NotFoundException.class, () ->
+                service.get(1));
     }
 
     @Test
