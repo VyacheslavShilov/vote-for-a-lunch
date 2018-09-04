@@ -18,6 +18,4 @@
 
     <context:component-scan base-package="ru.slloc.**.service"/>
 
-    <context:component-scan base-package="ru.slloc.**.web"/>
-
 </beans>

@@ -27,7 +27,6 @@
         <slf4j.version>1.7.25</slf4j.version>
 
         <!--DB-->
-        <!--<postgresql.version>42.2.1</postgresql.version>-->
         <!--    Tests  -->
         <junit.version>4.12</junit.version>
 
@@ -131,10 +130,11 @@
         </dependency>
 
         <!--Web-->
+
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-servlet-api</artifactId>
+            <version>${tomcat.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -142,6 +142,11 @@
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
         </dependency>
 
         <!--Test-->
