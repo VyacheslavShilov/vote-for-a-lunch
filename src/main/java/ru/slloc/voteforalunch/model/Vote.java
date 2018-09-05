@@ -15,7 +15,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 
 @Entity
 @Table(name = "votes", uniqueConstraints = {@UniqueConstraint(columnNames = "date_time", name = "user_id")})
-@JsonAutoDetect(fieldVisibility = ANY, getterVisibility = NONE, isGetterVisibility = NONE, setterVisibility = NONE)
+//@JsonAutoDetect(fieldVisibility = ANY, getterVisibility = NONE, isGetterVisibility = NONE, setterVisibility = NONE)
 public class Vote {
     public static final int START_VOTE_SEQ = 1000;
 

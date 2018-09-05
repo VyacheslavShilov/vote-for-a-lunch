@@ -12,7 +12,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 
 @MappedSuperclass
 @Access(AccessType.FIELD)
-@JsonAutoDetect(fieldVisibility = ANY, getterVisibility = NONE, isGetterVisibility = NONE, setterVisibility = NONE)
+//@JsonAutoDetect(fieldVisibility = ANY, getterVisibility = NONE, isGetterVisibility = NONE, setterVisibility = NONE)
 public abstract class AbstractBaseEntity implements Persistable<Integer> {
    // public static final int START_SEQ = 1000;
 
