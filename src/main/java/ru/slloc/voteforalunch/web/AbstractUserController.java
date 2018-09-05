@@ -10,6 +10,8 @@ import ru.slloc.voteforalunch.util.ValidationUtil.*;
 
 import java.util.List;
 
+import static ru.slloc.voteforalunch.util.ValidationUtil.assureIdConsistent;
+import static ru.slloc.voteforalunch.util.ValidationUtil.checkNew;
 
 
 public abstract class AbstractUserController {

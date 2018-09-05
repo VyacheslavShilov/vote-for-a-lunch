@@ -2,6 +2,8 @@ package ru.slloc.voteforalunch.util;
 
 
 import ru.slloc.voteforalunch.model.AbstractBaseEntity;
+import ru.slloc.voteforalunch.model.Restaurant;
+import ru.slloc.voteforalunch.model.User;
 import ru.slloc.voteforalunch.util.exception.NotFoundException;
 
 public class ValidationUtil {
@@ -28,13 +30,19 @@ public class ValidationUtil {
         }
     }
 
-    public static void checkNew(AbstractBaseEntity entity) {
+    public static void checkNew(User entity) {
         if (!entity.isNew()) {
             throw new IllegalArgumentException(entity + " must be new (id=null)");
         }
     }
 
-    public static void assureIdConsistent(AbstractBaseEntity entity, int id) {
+    public static void checkNew(Restaurant entity) {
+        if (!entity.isNew()) {
+            throw new IllegalArgumentException(entity + " must be new (id=null)");
+        }
+    }
+
+    public static void assureIdConsistent(User entity, int id) {
 //      http://stackoverflow.com/a/32728226/548473
         if (entity.isNew()) {
             entity.setId(id);

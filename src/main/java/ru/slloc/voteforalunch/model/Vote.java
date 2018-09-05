@@ -1,5 +1,6 @@
 package ru.slloc.voteforalunch.model;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -9,8 +10,12 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
+import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
+import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
+
 @Entity
 @Table(name = "votes", uniqueConstraints = {@UniqueConstraint(columnNames = "date_time", name = "user_id")})
+@JsonAutoDetect(fieldVisibility = ANY, getterVisibility = NONE, isGetterVisibility = NONE, setterVisibility = NONE)
 public class Vote {
     public static final int START_VOTE_SEQ = 1000;
 
