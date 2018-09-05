@@ -2,13 +2,18 @@ package ru.slloc.voteforalunch;
 
 
 
+import org.springframework.test.web.servlet.ResultMatcher;
 import ru.slloc.voteforalunch.model.Role;
 import ru.slloc.voteforalunch.model.User;
+import ru.slloc.voteforalunch.web.json.JsonUtil.*;
+
 
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static ru.slloc.voteforalunch.model.User.START_USER_SEQ;
+import static ru.slloc.voteforalunch.web.json.JsonUtil.writeIgnoreProps;
 
 public class UserTestData {
     public static final int USER_ID = START_USER_SEQ;
@@ -29,5 +34,13 @@ public class UserTestData {
 
     public static void assertMatch(Iterable<User> actual, Iterable<User> expected) {
         assertThat(actual).usingElementComparatorIgnoringFields("registered", "roles").isEqualTo(expected);
+    }
+
+    public static ResultMatcher contentJson(User... expected) {
+        return content().json(writeIgnoreProps(Arrays.asList(expected), "registered"));
+    }
+
+    public static ResultMatcher contentJson(User expected) {
+        return content().json(writeIgnoreProps(expected, "registered"));
     }
 }
