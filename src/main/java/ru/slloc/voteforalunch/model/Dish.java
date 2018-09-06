@@ -4,11 +4,10 @@ import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 @Entity
 @Table(name = "dishs", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "restaurant_id"}, name = "dishs_unique_name_restaurant_id_idx")})
-public class Dish extends AbstractNamedEntity {
+public class Dish extends AbstractNamedEntity implements HavinId {
     public static final int START_DISH_SEQ = 1000;
 
     @Id
@@ -35,9 +34,10 @@ public class Dish extends AbstractNamedEntity {
     @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
     private boolean enabled = true;
 
-    public Dish(){}
+    public Dish() {
+    }
 
-    public Dish(Dish d){
+    public Dish(Dish d) {
         this(d.getId(), d.getName(), d.getPrice(), d.getRestaurantId(), d.isEnabled());
     }
 
@@ -49,10 +49,12 @@ public class Dish extends AbstractNamedEntity {
         this.enabled = enabled;
     }
 
+    @Override
     public Integer getId() {
         return id;
     }
 
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }
@@ -77,6 +79,7 @@ public class Dish extends AbstractNamedEntity {
         return enabled;
     }
 
+    @Override
     public boolean isNew() {
         return this.id == null;
     }

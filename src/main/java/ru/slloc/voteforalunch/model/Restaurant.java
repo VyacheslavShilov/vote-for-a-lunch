@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "restaurants", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "uniqueConstraints_unique_name_idx")})
-public class Restaurant extends AbstractNamedEntity{
+public class Restaurant extends AbstractNamedEntity implements HavinId {
     public static final int START_RESTAURANT_SEQ = 1000;
 
     @Id
@@ -44,10 +44,12 @@ public class Restaurant extends AbstractNamedEntity{
 
     }
 
+    @Override
     public Integer getId() {
         return id;
     }
 
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }
@@ -56,6 +58,7 @@ public class Restaurant extends AbstractNamedEntity{
         return enabled;
     }
 
+    @Override
     public boolean isNew() {
         return this.id == null;
     }

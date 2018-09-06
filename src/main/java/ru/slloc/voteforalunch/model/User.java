@@ -14,7 +14,7 @@ import java.util.*;
 
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")})
-public class User extends AbstractNamedEntity{
+public class User extends AbstractNamedEntity implements HavinId {
     public static final int START_USER_SEQ = 1000;
 
     @Id
@@ -76,10 +76,12 @@ public class User extends AbstractNamedEntity{
         setRoles(roles);
     }
 
+    @Override
     public Integer getId() {
         return id;
     }
 
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }
@@ -112,6 +114,7 @@ public class User extends AbstractNamedEntity{
         return enabled;
     }
 
+    @Override
     public boolean isNew() {
         return this.id == null;
     }

@@ -1,6 +1,5 @@
 package ru.slloc.voteforalunch.model;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -10,13 +9,10 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
-import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
-
 @Entity
 @Table(name = "votes", uniqueConstraints = {@UniqueConstraint(columnNames = "date_time", name = "user_id")})
 //@JsonAutoDetect(fieldVisibility = ANY, getterVisibility = NONE, isGetterVisibility = NONE, setterVisibility = NONE)
-public class Vote {
+public class Vote implements HavinId {
     public static final int START_VOTE_SEQ = 1000;
 
     @Id
@@ -34,21 +30,22 @@ public class Vote {
     @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
     private LocalDateTime dateTime;
 
-    @ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="user_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     @NotNull
     private User user;
 
-    @ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="restaurant_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "restaurant_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private Restaurant restaurant;
 
-    public Vote(){}
+    public Vote() {
+    }
 
-    public Vote(Vote v){
+    public Vote(Vote v) {
         this(v.getId(), v.getDateTime(), v.getUser(), v.getRestaurant());
     }
 
@@ -59,10 +56,12 @@ public class Vote {
         this.restaurant = restaurant;
     }
 
+    @Override
     public Integer getId() {
         return id;
     }
 
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }
@@ -87,6 +86,7 @@ public class Vote {
         return restaurant;
     }
 
+    @Override
     public boolean isNew() {
         return this.id == null;
     }
