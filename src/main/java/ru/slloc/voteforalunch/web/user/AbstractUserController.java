@@ -1,4 +1,4 @@
-package ru.slloc.voteforalunch.web;
+package ru.slloc.voteforalunch.web.user;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

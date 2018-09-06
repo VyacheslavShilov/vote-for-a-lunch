@@ -1,4 +1,4 @@
-package ru.slloc.voteforalunch.web;
+package ru.slloc.voteforalunch.web.user;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.slloc.voteforalunch.UserTestData.*;
-import static ru.slloc.voteforalunch.web.ProfileRestController.REST_URL;
+import static ru.slloc.voteforalunch.web.user.ProfileRestController.REST_URL;
 
 class ProfileRestControllerTest extends AbstractControllerTest {
 

@@ -1,4 +1,4 @@
-package ru.slloc.voteforalunch.web;
+package ru.slloc.voteforalunch.web.user;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
