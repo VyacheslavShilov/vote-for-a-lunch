@@ -44,8 +44,8 @@ public class AbstractRestaurantController {
         service.update(restaurant);
     }
 
-    public Restaurant getByMail(String name) {
-        log.info("getByEmail {}", name);
+    public Restaurant getByName(String name) {
+        log.info("getByName {}", name);
         return service.getByName(name);
     }
 }
