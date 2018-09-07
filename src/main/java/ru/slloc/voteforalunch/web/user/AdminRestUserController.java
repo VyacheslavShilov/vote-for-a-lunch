@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping(AdminRestUserController.REST_URL)
 public class AdminRestUserController extends AbstractUserController {
 
-    static final String REST_URL = "/rest/admin/users";
+    static final String REST_URL = "/admin/users";
 
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
