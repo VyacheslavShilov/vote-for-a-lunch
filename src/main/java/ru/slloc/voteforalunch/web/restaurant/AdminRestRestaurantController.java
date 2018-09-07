@@ -1,41 +1,37 @@
-package ru.slloc.voteforalunch.web.user;
+package ru.slloc.voteforalunch.web.restaurant;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import ru.slloc.voteforalunch.model.User;
+import ru.slloc.voteforalunch.model.Restaurant;
 
 
 import java.net.URI;
 import java.util.List;
 
-
 @RestController
-@RequestMapping(AdminRestController.REST_URL)
-public class AdminRestController extends AbstractUserController {
+@RequestMapping(AdminRestRestaurantController.REST_URL)
+public class AdminRestRestaurantController extends AbstractRestaurantController{
 
-    static final String REST_URL = "/rest/admin/users";
+    static final String REST_URL = "/rest/admin/restaurants";
 
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<User> getAll() {
+    public List<Restaurant> getAll() {
         return super.getAll();
     }
 
     @Override
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public User get(@PathVariable("id") int id) {
+    public Restaurant get(@PathVariable("id") int id) {
         return super.get(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> createWithLocation(@RequestBody User user) {
-        User created = super.create(user);
-
-//        HttpHeaders httpHeaders = new HttpHeaders();
-//        httpHeaders.setLocation(uriOfNewResource);
+    public ResponseEntity<Restaurant> createWithLocation(@RequestBody Restaurant restaurant) {
+        Restaurant created = super.create(restaurant);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
@@ -53,13 +49,13 @@ public class AdminRestController extends AbstractUserController {
 
     @Override
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@RequestBody User user, @PathVariable("id") int id) {
-        super.update(user, id);
+    public void update(@RequestBody Restaurant restaurant, @PathVariable("id") int id) {
+        super.update(restaurant, id);
     }
 
     @Override
     @GetMapping(value = "/by", produces = MediaType.APPLICATION_JSON_VALUE)
-    public User getByMail(@RequestParam("email") String email) {
-        return super.getByMail(email);
+    public Restaurant getByName(@RequestParam("name") String name) {
+        return super.getByName(name);
     }
 }

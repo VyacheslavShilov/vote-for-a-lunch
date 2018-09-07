@@ -1,4 +1,4 @@
-package ru.slloc.voteforalunch.web.user;
+package ru.slloc.voteforalunch.web;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +38,7 @@ abstract public class AbstractControllerTest {
 //    @Autowired(required = false)
 //    private JpaUtil jpaUtil;
 
-    @Autowired
-    protected UserService userService;
+
 
     @Autowired
     private WebApplicationContext webApplicationContext;

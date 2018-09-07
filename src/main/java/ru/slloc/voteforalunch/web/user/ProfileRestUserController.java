@@ -8,9 +8,9 @@ import ru.slloc.voteforalunch.model.User;
 import static ru.slloc.voteforalunch.web.SecurityUtil.authUserId;
 
 @RestController
-@RequestMapping(ProfileRestController.REST_URL)
-public class ProfileRestController extends AbstractUserController {
-    static final String REST_URL = "/rest/profile";
+@RequestMapping(ProfileRestUserController.REST_URL)
+public class ProfileRestUserController extends AbstractUserController {
+    static final String REST_URL = "/profile";
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public User get() {

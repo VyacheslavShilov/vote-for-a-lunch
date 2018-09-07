@@ -12,9 +12,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.slloc.voteforalunch.UserTestData.*;
-import static ru.slloc.voteforalunch.web.user.ProfileRestController.REST_URL;
+import static ru.slloc.voteforalunch.web.user.ProfileRestUserController.REST_URL;
 
-class ProfileRestControllerTest extends AbstractControllerTest {
+class ProfileRestUserControllerTest extends AbstractControllerUserTest {
 
     @Test
     void testGet() throws Exception {
