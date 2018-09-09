@@ -3,6 +3,7 @@ package ru.slloc.voteforalunch.service;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import ru.slloc.voteforalunch.VoteTestData;
 import ru.slloc.voteforalunch.model.Role;
 import ru.slloc.voteforalunch.model.User;
 import ru.slloc.voteforalunch.util.exception.NotFoundException;
@@ -81,5 +82,17 @@ public class UserServiceTest extends AbstractServiceTest{
     public void getAll() throws Exception {
         List<User> all = service.getAll();
         assertMatch(all, ADMIN, USER, USER2);
+    }
+
+    @Test
+    void getWithVotes() throws Exception{
+        User admin = service.getWithVotes(ADMIN_ID);
+        assertMatch(admin, ADMIN);
+        VoteTestData.assertMatch(admin.getVotes(), VoteTestData.ADMIN_VOTE2, VoteTestData.ADMIN_VOTE1);
+    }
+
+    @Test
+    void getWithVotesNotFound() throws Exception{
+       assertThrows(NotFoundException.class, () -> service.getWithVotes(1));
     }
 }

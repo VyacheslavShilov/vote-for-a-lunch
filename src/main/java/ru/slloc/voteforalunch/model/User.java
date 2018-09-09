@@ -51,9 +51,9 @@ public class User extends AbstractNamedEntity implements HavinId {
     @BatchSize(size = 200)
     private Set<Role> roles;
 
-   /* @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")//, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")//, cascade = CascadeType.REMOVE, orphanRemoval = true)
     @OrderBy("dateTime DESC")
-    protected List<Vote> voteList;*/
+    protected List<Vote> votes;
 
     public User() {
     }
@@ -131,9 +131,9 @@ public class User extends AbstractNamedEntity implements HavinId {
         this.roles = CollectionUtils.isEmpty(roles) ? Collections.emptySet() : EnumSet.copyOf(roles);
     }
 
-   /* public List<Vote> getVotes() {
-        return voteList;
-    }*/
+    public List<Vote> getVotes() {
+        return votes;
+    }
 
     @Override
     public String toString() {

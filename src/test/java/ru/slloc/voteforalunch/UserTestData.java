@@ -22,10 +22,10 @@ public class UserTestData {
 
     public static final User USER = new User(USER_ID, "User", "user@yandex.ru", "password", Role.ROLE_USER);
     public static final User USER2 = new User(USER2_ID, "User2", "user2@yandex.ru", "password2", Role.ROLE_USER);
-    public static final User ADMIN = new User(ADMIN_ID, "Admin", "admin@gmail.com", "admin", Role.ROLE_ADMIN);
+    public static final User ADMIN = new User(ADMIN_ID, "Admin", "admin@gmail.com", "admin", Role.ROLE_ADMIN, Role.ROLE_USER);
 
     public static void assertMatch(User actual, User expected) {
-        assertThat(actual).isEqualToIgnoringGivenFields(expected, "registered", "roles");
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, "registered", "votes");
     }
 
     public static void assertMatch(Iterable<User> actual, User... expected) {
@@ -33,7 +33,7 @@ public class UserTestData {
     }
 
     public static void assertMatch(Iterable<User> actual, Iterable<User> expected) {
-        assertThat(actual).usingElementComparatorIgnoringFields("registered", "roles").isEqualTo(expected);
+        assertThat(actual).usingElementComparatorIgnoringFields("registered", "votes").isEqualTo(expected);
     }
 
     public static ResultMatcher contentJson(User... expected) {

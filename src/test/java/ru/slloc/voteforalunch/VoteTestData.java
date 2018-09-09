@@ -25,6 +25,8 @@ public class VoteTestData {
     public static final Vote VOTE4 = new Vote(START_VOTE_SEQ + 3, of(2018, Month.APRIL, 10, 9,0), USER, RESTAURANT2);
     public static final Vote VOTE5 = new Vote(START_VOTE_SEQ + 4, of(2018, Month.APRIL, 10, 9,30), USER2, RESTAURANT1);
     public static final Vote VOTE6 = new Vote(START_VOTE_SEQ + 5, of(2018, Month.APRIL, 10, 10,0), ADMIN, RESTAURANT2);
+    public static final Vote ADMIN_VOTE1 = VOTE3;
+    public static final Vote ADMIN_VOTE2 = VOTE6;
 
     public static final List<Vote> VOTES = Arrays.asList(VOTE6, VOTE5, VOTE4, VOTE3, VOTE2, VOTE1);
 
