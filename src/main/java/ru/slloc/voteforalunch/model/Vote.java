@@ -8,12 +8,16 @@ import ru.slloc.voteforalunch.util.DateTimeUtil;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "votes", uniqueConstraints = {@UniqueConstraint(columnNames = "date_time", name = "user_id")})
 //@JsonAutoDetect(fieldVisibility = ANY, getterVisibility = NONE, isGetterVisibility = NONE, setterVisibility = NONE)
 public class Vote implements HavinId {
     public static final int START_VOTE_SEQ = 1000;
+    public static final LocalTime END_TIME_FOR_VOTE = LocalTime.of(11, 00);
+
+
 
     @Id
     @SequenceGenerator(name = "VOTES_SEQ", sequenceName = "VOTES_SEQ", allocationSize = 1, initialValue = START_VOTE_SEQ)

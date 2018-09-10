@@ -11,6 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static ru.slloc.voteforalunch.RestaurantTestData.RESTAURANT1;
 import static ru.slloc.voteforalunch.RestaurantTestData.RESTAURANT2;
 import static ru.slloc.voteforalunch.UserTestData.*;
+import static ru.slloc.voteforalunch.model.Vote.END_TIME_FOR_VOTE;
 import static ru.slloc.voteforalunch.model.Vote.START_VOTE_SEQ;
 
 
@@ -34,8 +35,16 @@ public class VoteTestData {
         return new Vote(null, of(2018, Month.MAY, 1, 8,0), USER, RESTAURANT1);
     }
 
+    public static Vote getCreatedAfterEndTimeForVote() {
+        return new Vote(null, of(2018, Month.MAY, 1, END_TIME_FOR_VOTE.getHour() + 1,END_TIME_FOR_VOTE.getMinute() + 1), USER, RESTAURANT1);
+    }
+
     public static Vote getUpdated() {
         return new Vote(VOTE1.getId(), VOTE1.getDateTime(), USER, RESTAURANT2);
+    }
+
+    public static Vote getUpdatedAfterEndTimeForVote() {
+        return new Vote(null, of(2018, Month.MAY, 1, END_TIME_FOR_VOTE.getHour() + 1,END_TIME_FOR_VOTE.getMinute() + 1), USER, RESTAURANT1);
     }
 
     public static void assertMatch(Vote actual, Vote expected) {

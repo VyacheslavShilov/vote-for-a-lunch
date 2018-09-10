@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.slloc.voteforalunch.model.Vote;
 import ru.slloc.voteforalunch.util.exception.NotFoundException;
+import ru.slloc.voteforalunch.util.exception.TimeForVoteIsFinishedException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -37,6 +38,13 @@ public class VoteServisTest extends AbstractServiceTest {
     }
 
     @Test
+    public void createAfterEndTimeForVote() throws Exception {
+        Vote created = getCreatedAfterEndTimeForVote();
+        assertThrows(TimeForVoteIsFinishedException.class, () -> service.create(created, USER_ID));
+        assertMatch(service.getAll(USER_ID), VOTE4, VOTE1);
+    }
+
+    @Test
     public void get() throws Exception {
         Vote actual = service.get(VOTE3_ID, ADMIN_ID);
         assertMatch(actual, VOTE3);
@@ -53,6 +61,13 @@ public class VoteServisTest extends AbstractServiceTest {
         Vote updated = getUpdated();
         service.update(updated, USER_ID);
         assertMatch(service.get(VOTE1_ID, USER_ID), updated);
+    }
+
+    @Test
+    public void updateAfterEndTimeForVote() throws Exception {
+        Vote updated = getUpdatedAfterEndTimeForVote();
+        assertThrows(TimeForVoteIsFinishedException.class, () -> service.update(updated, USER_ID));
+        assertMatch(service.getAll(USER_ID), VOTE4, VOTE1);
     }
 
     @Test
