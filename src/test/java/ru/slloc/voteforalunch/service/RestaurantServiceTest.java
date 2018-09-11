@@ -7,10 +7,13 @@ import org.springframework.dao.DataAccessException;
 import ru.slloc.voteforalunch.model.Restaurant;
 import ru.slloc.voteforalunch.util.exception.NotFoundException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.slloc.voteforalunch.RestaurantTestData.*;
+import static ru.slloc.voteforalunch.VoteTestData.DATE_1;
+import static ru.slloc.voteforalunch.VoteTestData.DATE_2;
 
 public class RestaurantServiceTest extends AbstractServiceTest {
 
@@ -71,5 +74,16 @@ public class RestaurantServiceTest extends AbstractServiceTest {
     public void getAll() throws Exception {
         List<Restaurant> all = service.getAll();
         assertMatch(all, RESTAURANT2, RESTAURANT1);
+    }
+
+    @Test
+    public void getWinner() throws Exception{
+        List<Restaurant> winners = service.getWinner(DATE_2);
+        assertMatch(winners, RESTAURANT2);
+    }
+
+    @Test
+    public void getWinnerNotFound() throws Exception{
+        assertThrows(NotFoundException.class, () ->  service.getWinner(LocalDate.now()));
     }
 }
