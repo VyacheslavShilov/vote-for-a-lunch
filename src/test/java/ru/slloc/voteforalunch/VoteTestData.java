@@ -3,6 +3,7 @@ package ru.slloc.voteforalunch;
 import ru.slloc.voteforalunch.model.Vote;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
@@ -21,17 +22,23 @@ public class VoteTestData {
     public static final int VOTE1_ID = START_VOTE_SEQ;
     public static final int VOTE3_ID = START_VOTE_SEQ + 2;
 
-    public static final Vote VOTE1 = new Vote(START_VOTE_SEQ, of(2018, Month.APRIL, 9, 9,0), USER, RESTAURANT1);
-    public static final Vote VOTE2 = new Vote(START_VOTE_SEQ + 1, of(2018, Month.APRIL, 9, 9,30), USER2, RESTAURANT1);
-    public static final Vote VOTE3 = new Vote(START_VOTE_SEQ + 2, of(2018, Month.APRIL, 9, 10,0), ADMIN, RESTAURANT2);
-    public static final Vote VOTE4 = new Vote(START_VOTE_SEQ + 3, of(2018, Month.APRIL, 10, 9,0), USER, RESTAURANT2);
-    public static final Vote VOTE5 = new Vote(START_VOTE_SEQ + 4, of(2018, Month.APRIL, 10, 9,30), USER2, RESTAURANT1);
-    public static final Vote VOTE6 = new Vote(START_VOTE_SEQ + 5, of(2018, Month.APRIL, 10, 10,0), ADMIN, RESTAURANT2);
+    public static final LocalDate DATE_1 = LocalDate.of(2018, Month.APRIL, 9);
+    public static final LocalDate DATE_2 = LocalDate.of(2018, Month.APRIL, 10);
+    public static final LocalDate DATE_3 = LocalDate.of(2018, Month.APRIL, 11);
+
+    public static final Vote VOTE1 = new Vote(START_VOTE_SEQ, of(DATE_1, LocalTime.of(9, 0)), USER, RESTAURANT1);
+    public static final Vote VOTE2 = new Vote(START_VOTE_SEQ + 1, of(DATE_1, LocalTime.of(9, 30)), USER2, RESTAURANT1);
+    public static final Vote VOTE3 = new Vote(START_VOTE_SEQ + 2, of(DATE_1, LocalTime.of(10, 0)), ADMIN, RESTAURANT2);
+    public static final Vote VOTE4 = new Vote(START_VOTE_SEQ + 3, of(DATE_2, LocalTime.of(9, 0)), USER, RESTAURANT2);
+    public static final Vote VOTE5 = new Vote(START_VOTE_SEQ + 4, of(DATE_2, LocalTime.of(9, 30)), USER2, RESTAURANT1);
+    public static final Vote VOTE6 = new Vote(START_VOTE_SEQ + 5, of(DATE_2, LocalTime.of(10, 0)), ADMIN, RESTAURANT2);
+    public static final Vote VOTE7 = new Vote(START_VOTE_SEQ + 6, of(DATE_3, LocalTime.of(0, 1)), USER, RESTAURANT2);
+    public static final Vote VOTE8 = new Vote(START_VOTE_SEQ + 7, of(DATE_3, LocalTime.of(10, 59)), USER2, RESTAURANT1);
+    public static final Vote VOTE9 = new Vote(START_VOTE_SEQ + 8, of(DATE_3, LocalTime.of(11, 1)), ADMIN, RESTAURANT2);
     public static final Vote ADMIN_VOTE1 = VOTE3;
     public static final Vote ADMIN_VOTE2 = VOTE6;
 
-    public static final LocalDate DATE_1 = of(2018, Month.APRIL, 9, 9,0).toLocalDate();
-    public static final LocalDate DATE_2 = of(2018, Month.APRIL, 10, 9,0).toLocalDate();
+
 
     public static final List<Vote> VOTES = Arrays.asList(VOTE6, VOTE5, VOTE4, VOTE3, VOTE2, VOTE1);
 

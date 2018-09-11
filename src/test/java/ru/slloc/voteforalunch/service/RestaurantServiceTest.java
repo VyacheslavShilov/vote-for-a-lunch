@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.slloc.voteforalunch.RestaurantTestData.*;
 import static ru.slloc.voteforalunch.VoteTestData.DATE_1;
 import static ru.slloc.voteforalunch.VoteTestData.DATE_2;
+import static ru.slloc.voteforalunch.VoteTestData.DATE_3;
 
 public class RestaurantServiceTest extends AbstractServiceTest {
 
@@ -80,6 +81,12 @@ public class RestaurantServiceTest extends AbstractServiceTest {
     public void getWinner() throws Exception{
         List<Restaurant> winners = service.getWinner(DATE_2);
         assertMatch(winners, RESTAURANT2);
+    }
+
+    @Test
+    public void getTwoWinners() throws Exception{
+        List<Restaurant> winners = service.getWinner(DATE_3);
+        assertMatch(winners, RESTAURANT1, RESTAURANT2);
     }
 
     @Test
