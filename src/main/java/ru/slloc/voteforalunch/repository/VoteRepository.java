@@ -2,6 +2,7 @@ package ru.slloc.voteforalunch.repository;
 
 import ru.slloc.voteforalunch.model.Vote;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,6 +18,8 @@ public interface VoteRepository {
 
     // ORDERED dateTime desc
     List<Vote> getAll(int userId);
+
+    List<Vote> getAllForDate(LocalDate date);
 
     // ORDERED dateTime desc
    // List<Vote> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId);

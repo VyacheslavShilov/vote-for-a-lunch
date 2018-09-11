@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.slloc.voteforalunch.model.Vote;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -37,5 +39,12 @@ public class DataJpaVoteRepositoryImpl implements VoteRepository{
     @Override
     public List<Vote> getAll(int userId) {
         return crudVoteRepository.getAll(userId);
+    }
+
+    @Override
+    public List<Vote> getAllForDate(LocalDate date) {
+        LocalDateTime startDate = date.atStartOfDay();
+        LocalDateTime endDate = date.atTime(11, 0);
+        return crudVoteRepository.getAllForDate(startDate, endDate);
     }
 }

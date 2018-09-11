@@ -8,6 +8,7 @@ import ru.slloc.voteforalunch.repository.VoteRepository;
 import ru.slloc.voteforalunch.util.exception.NotFoundException;
 import ru.slloc.voteforalunch.util.exception.TimeForVoteIsFinishedException;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -40,6 +41,12 @@ public class VoteServiceImpl implements VoteService {
     public List<Vote> getAll(int userId) {
         return repository.getAll(userId);
     }
+
+    @Override
+    public List<Vote> getAllForDate(LocalDate date) {
+        return repository.getAllForDate(date);
+    }
+
 
     @Override
     public Vote update(Vote vote, int userId) throws NotFoundException {

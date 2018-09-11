@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import ru.slloc.voteforalunch.model.Vote;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -26,9 +27,15 @@ public interface CrudVoteRepository extends JpaRepository<Vote, Integer> {
     List<Vote> getAll(@Param("userId") int userId);
 
     @SuppressWarnings("JpaQlInspection")
+    @Query("SELECT v FROM Vote v WHERE v.dateTime BETWEEN :startDate AND :endDate")
+    List<Vote> getAllForDate(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
+
+    @SuppressWarnings("JpaQlInspection")
     @Query("SELECT m from Vote m WHERE m.user.id=:userId AND m.dateTime BETWEEN :startDate AND :endDate ORDER BY m.dateTime DESC")
     List<Vote> getBetween(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate, @Param("userId") int userId);
 
     @Query("SELECT m FROM Vote m JOIN FETCH m.user WHERE m.id = ?1 and m.user.id = ?2")
     Vote getWithUser(int id, int userId);
+
+
 }

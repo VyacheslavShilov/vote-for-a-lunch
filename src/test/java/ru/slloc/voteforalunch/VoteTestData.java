@@ -2,6 +2,7 @@ package ru.slloc.voteforalunch;
 
 import ru.slloc.voteforalunch.model.Vote;
 
+import java.time.LocalDate;
 import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +29,9 @@ public class VoteTestData {
     public static final Vote VOTE6 = new Vote(START_VOTE_SEQ + 5, of(2018, Month.APRIL, 10, 10,0), ADMIN, RESTAURANT2);
     public static final Vote ADMIN_VOTE1 = VOTE3;
     public static final Vote ADMIN_VOTE2 = VOTE6;
+
+    public static final LocalDate DATE_1 = of(2018, Month.APRIL, 9, 9,0).toLocalDate();
+    public static final LocalDate DATE_2 = of(2018, Month.APRIL, 10, 9,0).toLocalDate();
 
     public static final List<Vote> VOTES = Arrays.asList(VOTE6, VOTE5, VOTE4, VOTE3, VOTE2, VOTE1);
 
