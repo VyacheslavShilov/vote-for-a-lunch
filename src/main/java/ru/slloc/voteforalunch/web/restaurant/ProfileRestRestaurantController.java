@@ -1,12 +1,10 @@
 package ru.slloc.voteforalunch.web.restaurant;
 
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.slloc.voteforalunch.model.Restaurant;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -19,6 +17,22 @@ public class ProfileRestRestaurantController extends AbstractRestaurantControlle
     public List<Restaurant> getAll() {
         return super.getAll();
     }
+
+    @Override
+    @GetMapping(value = "/get_winner")
+    public List<Restaurant> getWinner(@RequestParam(value = "date", required = false) LocalDate date) {
+        return super.getWinner(date);
+    }
+   /* @Override
+    @GetMapping(value = "/get_winner", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Restaurant> getWinner(LocalDate date) {
+        return super.getWinner(null);
+    }
+
+    @GetMapping(value = "/get_winner/{date}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Restaurant> getWinnerWithDate(@PathVariable("date") LocalDate date) {
+        return super.getWinner(null);
+    }*/
 
     @Override
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

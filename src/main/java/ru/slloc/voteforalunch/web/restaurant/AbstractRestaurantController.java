@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ru.slloc.voteforalunch.model.Restaurant;
 import ru.slloc.voteforalunch.service.RestaurantService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static ru.slloc.voteforalunch.util.ValidationUtil.assureIdConsistent;
@@ -20,6 +21,12 @@ public class AbstractRestaurantController {
     public List<Restaurant> getAll() {
         log.info("getAll");
         return service.getAll();
+    }
+
+    public List<Restaurant> getWinner(LocalDate date) {
+        log.info("getWinner");
+        if (date != null) return service.getWinner(date);
+        else return service.getWinner(LocalDate.now());
     }
 
     public Restaurant get(int id) {
@@ -48,4 +55,6 @@ public class AbstractRestaurantController {
         log.info("getByName {}", name);
         return service.getByName(name);
     }
+
+
 }
