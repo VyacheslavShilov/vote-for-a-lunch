@@ -9,11 +9,12 @@ import ru.slloc.voteforalunch.model.Restaurant;
 
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 @RequestMapping(AdminRestRestaurantController.REST_URL)
-public class AdminRestRestaurantController extends AbstractRestaurantController{
+public class AdminRestRestaurantController extends AbstractRestaurantController {
 
     static final String REST_URL = "/admin/restaurants";
 
@@ -57,5 +58,11 @@ public class AdminRestRestaurantController extends AbstractRestaurantController{
     @GetMapping(value = "/by", produces = MediaType.APPLICATION_JSON_VALUE)
     public Restaurant getByName(@RequestParam("name") String name) {
         return super.getByName(name);
+    }
+
+    @Override
+    @GetMapping(value = "/get_winner")
+    public List<Restaurant> getWinner(@RequestParam(value = "date", required = false) LocalDate date) {
+        return super.getWinner(date);
     }
 }

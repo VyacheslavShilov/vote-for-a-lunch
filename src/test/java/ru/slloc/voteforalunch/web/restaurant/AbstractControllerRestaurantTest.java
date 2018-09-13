@@ -9,4 +9,6 @@ public class AbstractControllerRestaurantTest extends AbstractControllerTest {
     @Autowired
     protected RestaurantService restaurantService;
 
+
+
 }
