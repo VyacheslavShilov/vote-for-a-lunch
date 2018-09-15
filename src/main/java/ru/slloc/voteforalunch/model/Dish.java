@@ -1,9 +1,11 @@
 package ru.slloc.voteforalunch.model;
 
+import org.hibernate.Hibernate;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name = "dishs", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "restaurant_id"}, name = "dishs_unique_name_restaurant_id_idx")})
@@ -33,6 +35,9 @@ public class Dish extends AbstractNamedEntity implements HavinId {
 
     @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
     private boolean enabled = true;
+
+    @ManyToMany(mappedBy="dishes")
+    protected List<Menu> menus;
 
     public Dish() {
     }
@@ -88,6 +93,10 @@ public class Dish extends AbstractNamedEntity implements HavinId {
         this.enabled = enabled;
     }
 
+    public List<Menu> getMenus() {
+        return menus;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Dish{");
@@ -98,5 +107,22 @@ public class Dish extends AbstractNamedEntity implements HavinId {
         sb.append(", id=").append(id);
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || !getClass().equals(Hibernate.getClass(o))) {
+            return false;
+        }
+        Dish that = (Dish) o;
+        return id != null && id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id == null ? 0 : id;
     }
 }
