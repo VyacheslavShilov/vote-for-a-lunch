@@ -88,7 +88,7 @@ public class UserServiceTest extends AbstractServiceTest{
     void getWithVotes() throws Exception{
         User admin = service.getWithVotes(ADMIN_ID);
         assertMatch(admin, ADMIN);
-        VoteTestData.assertMatch(admin.getVotes(), VoteTestData.ADMIN_VOTE3, VoteTestData.ADMIN_VOTE2, VoteTestData.ADMIN_VOTE1);
+        VoteTestData.assertMatch(admin.getVotes(), VoteTestData.ADMIN_VOTE2, VoteTestData.ADMIN_VOTE1);
     }
 
     @Test
