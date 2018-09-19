@@ -83,7 +83,7 @@ public class VoteServisTest extends AbstractServiceTest {
 
     @Test
     public void getAllForDate() throws Exception {
-        assertMatch(service.getAllForDate(DATE_1), VOTE1, VOTE2, VOTE3);
-        assertMatch(service.getAllForDate(DATE_2), VOTE4, VOTE5, VOTE6);
+        assertMatch(service.getAllForDate(DATE_1), VOTE3, VOTE2, VOTE1);
+        assertMatch(service.getAllForDate(DATE_2), VOTE6, VOTE5, VOTE4);
     }
 }
