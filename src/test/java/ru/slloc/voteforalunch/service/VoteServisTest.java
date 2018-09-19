@@ -21,7 +21,7 @@ public class VoteServisTest extends AbstractServiceTest {
     @Test
     public void delete() throws Exception {
         service.delete(VOTE1_ID, USER_ID);
-        assertMatch(service.getAll(USER_ID), VOTE4);
+        assertMatch(service.getAll(USER_ID), VOTE7, VOTE4);
     }
 
     @Test
@@ -34,14 +34,14 @@ public class VoteServisTest extends AbstractServiceTest {
     public void create() throws Exception {
         Vote created = getCreated();
         service.create(created, USER_ID);
-        assertMatch(service.getAll(USER_ID), created, VOTE4, VOTE1);
+        assertMatch(service.getAll(USER_ID), created, VOTE7, VOTE4, VOTE1);
     }
 
     @Test
     public void createAfterEndTimeForVote() throws Exception {
         Vote created = getCreatedAfterEndTimeForVote();
         assertThrows(TimeForVoteIsFinishedException.class, () -> service.create(created, USER_ID));
-        assertMatch(service.getAll(USER_ID), VOTE4, VOTE1);
+        assertMatch(service.getAll(USER_ID), VOTE7, VOTE4, VOTE1);
     }
 
     @Test
@@ -67,7 +67,7 @@ public class VoteServisTest extends AbstractServiceTest {
     public void updateAfterEndTimeForVote() throws Exception {
         Vote updated = getUpdatedAfterEndTimeForVote();
         assertThrows(TimeForVoteIsFinishedException.class, () -> service.update(updated, USER_ID));
-        assertMatch(service.getAll(USER_ID), VOTE4, VOTE1);
+        assertMatch(service.getAll(USER_ID), VOTE7, VOTE4, VOTE1);
     }
 
     @Test
@@ -78,7 +78,7 @@ public class VoteServisTest extends AbstractServiceTest {
 
     @Test
     public void getAll() throws Exception {
-        assertMatch(service.getAll(USER_ID), VOTE4, VOTE1);
+        assertMatch(service.getAll(USER_ID), VOTE7, VOTE4, VOTE1);
     }
 
     @Test
@@ -86,6 +86,4 @@ public class VoteServisTest extends AbstractServiceTest {
         assertMatch(service.getAllForDate(DATE_1), VOTE1, VOTE2, VOTE3);
         assertMatch(service.getAllForDate(DATE_2), VOTE4, VOTE5, VOTE6);
     }
-
-
 }

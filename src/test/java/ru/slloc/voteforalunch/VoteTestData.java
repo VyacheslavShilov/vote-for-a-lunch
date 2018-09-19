@@ -37,6 +37,7 @@ public class VoteTestData {
     public static final Vote VOTE9 = new Vote(START_VOTE_SEQ + 8, of(DATE_3, LocalTime.of(11, 1)), ADMIN, RESTAURANT2);
     public static final Vote ADMIN_VOTE1 = VOTE3;
     public static final Vote ADMIN_VOTE2 = VOTE6;
+    public static final Vote ADMIN_VOTE3 = VOTE9;
 
 
 

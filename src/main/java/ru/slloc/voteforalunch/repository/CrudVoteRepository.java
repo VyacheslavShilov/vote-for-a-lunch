@@ -16,25 +16,25 @@ public interface CrudVoteRepository extends JpaRepository<Vote, Integer> {
 
     @Modifying
     @Transactional
-    @Query("DELETE FROM Vote m WHERE m.id=:id AND m.user.id=:userId")
+    @Query("DELETE FROM Vote v WHERE v.id=:id AND v.user.id=:userId")
     int delete(@Param("id") int id, @Param("userId") int userId);
 
     @Override
     @Transactional
     Vote save(Vote item);
 
-    @Query("SELECT m FROM Vote m WHERE m.user.id=:userId ORDER BY m.dateTime DESC")
+    @Query("SELECT v FROM Vote v WHERE v.user.id=:userId ORDER BY v.dateTime DESC")
     List<Vote> getAll(@Param("userId") int userId);
 
     @SuppressWarnings("JpaQlInspection")
-    @Query("SELECT v FROM Vote v WHERE v.dateTime BETWEEN :startDate AND :endDate")
+    @Query("SELECT v FROM Vote v WHERE v.dateTime BETWEEN :startDate AND :endDate ORDER BY v.dateTime DESC")
     List<Vote> getAllForDate(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 
     @SuppressWarnings("JpaQlInspection")
-    @Query("SELECT m from Vote m WHERE m.user.id=:userId AND m.dateTime BETWEEN :startDate AND :endDate ORDER BY m.dateTime DESC")
+    @Query("SELECT v from Vote v WHERE v.user.id=:userId AND v.dateTime BETWEEN :startDate AND :endDate ORDER BY v.dateTime DESC")
     List<Vote> getBetween(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate, @Param("userId") int userId);
 
-    @Query("SELECT m FROM Vote m JOIN FETCH m.user WHERE m.id = ?1 and m.user.id = ?2")
+    @Query("SELECT v FROM Vote v JOIN FETCH v.user WHERE v.id = ?1 and v.user.id = ?2")
     Vote getWithUser(int id, int userId);
 
 
