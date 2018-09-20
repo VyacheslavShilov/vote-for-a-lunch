@@ -20,8 +20,6 @@ public class VoteServiceImpl implements VoteService {
 
     private final VoteRepository repository;
 
-
-
     @Autowired
     public VoteServiceImpl(VoteRepository repository) {
         this.repository = repository;
