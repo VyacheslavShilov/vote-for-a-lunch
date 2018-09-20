@@ -3,6 +3,7 @@ package ru.slloc.voteforalunch.model;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "restaurants", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "uniqueConstraints_unique_name_idx")})
@@ -41,8 +42,10 @@ public class Restaurant extends AbstractNamedEntity implements HavinId {
         super(name);
         this.id = id;
         this.enabled = true;
-
     }
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")//, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OrderBy("name DESC")
+    protected List<Dish> dishes;
 
     @Override
     public Integer getId() {
@@ -67,8 +70,9 @@ public class Restaurant extends AbstractNamedEntity implements HavinId {
         this.enabled = enabled;
     }
 
-    //get dishs
-
+    public List<Dish> getDishes() {
+        return dishes;
+    }
 
     @Override
     public String toString() {

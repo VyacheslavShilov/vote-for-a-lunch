@@ -1,5 +1,7 @@
 package ru.slloc.voteforalunch.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
@@ -27,9 +29,11 @@ public class Dish extends AbstractNamedEntity implements HavinId {
     @Range(min = 0, max = 10000)
     private int price;
 
-    @Column(name = "restaurant_id", columnDefinition = "restaurant_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "restaurant_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
-    private int restaurantId;
+    private Restaurant restaurant;
 
     @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
     private boolean enabled = true;
@@ -38,14 +42,14 @@ public class Dish extends AbstractNamedEntity implements HavinId {
     }
 
     public Dish(Dish d) {
-        this(d.getId(), d.getName(), d.getPrice(), d.getRestaurantId(), d.isEnabled());
+        this(d.getId(), d.getName(), d.getPrice(), d.isEnabled());
     }
 
-    public Dish(Integer id, String name, @Range(min = 0, max = 10000) int price, @NotNull int restaurantId, boolean enabled) {
+    public Dish(Integer id, String name, @Range(min = 0, max = 10000) int price, boolean enabled) {
         super(name);
         this.id = id;
         this.price = price;
-        this.restaurantId = restaurantId;
+       // this.restaurantId = restaurantId;
         this.enabled = enabled;
     }
 
@@ -67,12 +71,12 @@ public class Dish extends AbstractNamedEntity implements HavinId {
         this.price = price;
     }
 
-    public int getRestaurantId() {
-        return restaurantId;
+    public Restaurant getRestaurant() {
+        return restaurant;
     }
 
-    public void setRestaurantId(int restaurantId) {
-        this.restaurantId = restaurantId;
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 
     public boolean isEnabled() {
@@ -92,7 +96,7 @@ public class Dish extends AbstractNamedEntity implements HavinId {
     public String toString() {
         final StringBuilder sb = new StringBuilder("Dish{");
         sb.append("price=").append(price);
-        sb.append(", restaurantId=").append(restaurantId);
+        sb.append(", restaurant=").append(restaurant);
         sb.append(", enabled=").append(enabled);
         sb.append(", name='").append(name).append('\'');
         sb.append(", id=").append(id);
