@@ -3,7 +3,9 @@ package ru.slloc.voteforalunch.web.restaurant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.slloc.voteforalunch.model.Dish;
 import ru.slloc.voteforalunch.model.Restaurant;
+import ru.slloc.voteforalunch.service.DishService;
 import ru.slloc.voteforalunch.service.RestaurantService;
 
 import java.time.LocalDate;
@@ -16,45 +18,55 @@ public class AbstractRestaurantController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private RestaurantService service;
+    private RestaurantService restaurantService;
+
+    @Autowired
+    private DishService dishService;
 
     public List<Restaurant> getAll() {
         log.info("getAll");
-        return service.getAll();
+        return restaurantService.getAll();
     }
 
     public List<Restaurant> getWinner(LocalDate date) {
         log.info("getWinner");
-        if (date != null) return service.getWinner(date);
-        else return service.getWinner(LocalDate.now());
+        if (date != null) return restaurantService.getWinner(date);
+        else return restaurantService.getWinner(LocalDate.now());
     }
 
     public Restaurant get(int id) {
         log.info("get {}", id);
-        return service.get(id);
+        return restaurantService.get(id);
+    }
+
+    public Restaurant getByName(String name) {
+        log.info("getByName {}", name);
+        return restaurantService.getByName(name);
+    }
+
+    public List<Dish> getMenu(int id){
+        log.info("getMenu {}", id);
+        return dishService.getMenu(id);
     }
 
     public Restaurant create(Restaurant restaurant) {
         log.info("create {}", restaurant);
         checkNew(restaurant);
-        return service.create(restaurant);
+        return restaurantService.create(restaurant);
     }
 
     public void delete(int id) {
         log.info("delete {}", id);
-        service.delete(id);
+        restaurantService.delete(id);
     }
 
     public void update(Restaurant restaurant, int id) {
         log.info("update {} with id={}", restaurant, id);
         assureIdConsistent(restaurant, id);
-        service.update(restaurant);
+        restaurantService.update(restaurant);
     }
 
-    public Restaurant getByName(String name) {
-        log.info("getByName {}", name);
-        return service.getByName(name);
-    }
+
 
 
 }

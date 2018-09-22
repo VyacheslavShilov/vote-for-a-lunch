@@ -14,21 +14,21 @@ import java.util.List;
 
 @RestController
 @RequestMapping(AdminRestRestaurantController.REST_URL)
-public class AdminRestRestaurantController extends AbstractRestaurantController {
+public class AdminRestRestaurantController extends ProfileRestRestaurantController {
 
     static final String REST_URL = "/admin/restaurants";
 
-    @Override
+    /*@Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Restaurant> getAll() {
         return super.getAll();
-    }
+    }*/
 
-    @Override
+   /* @Override
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Restaurant get(@PathVariable("id") int id) {
         return super.get(id);
-    }
+    }*/
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> createWithLocation(@RequestBody Restaurant restaurant) {
@@ -60,9 +60,9 @@ public class AdminRestRestaurantController extends AbstractRestaurantController 
         return super.getByName(name);
     }
 
-    @Override
+   /* @Override
     @GetMapping(value = "/get_winner")
     public List<Restaurant> getWinner(@RequestParam(value = "date", required = false) LocalDate date) {
         return super.getWinner(date);
-    }
+    }*/
 }
