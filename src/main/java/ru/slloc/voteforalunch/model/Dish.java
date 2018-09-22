@@ -1,5 +1,6 @@
 package ru.slloc.voteforalunch.model;
 
+import org.hibernate.Hibernate;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Range;
@@ -96,11 +97,28 @@ public class Dish extends AbstractNamedEntity implements HavinId {
     public String toString() {
         final StringBuilder sb = new StringBuilder("Dish{");
         sb.append("price=").append(price);
-        sb.append(", restaurant=").append(restaurant);
+    //    sb.append(", restaurant=").append(restaurant.getName());
         sb.append(", enabled=").append(enabled);
         sb.append(", name='").append(name).append('\'');
         sb.append(", id=").append(id);
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || !getClass().equals(Hibernate.getClass(o))) {
+            return false;
+        }
+        Dish that = (Dish) o;
+        return id != null && id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id == null ? 0 : id;
     }
 }

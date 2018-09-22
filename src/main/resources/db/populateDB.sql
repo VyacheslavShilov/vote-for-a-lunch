@@ -40,11 +40,12 @@ values ('Стрела'),
   ('2018-04-09 09:00:00', 1001),
   ('2018-04-10 09:00:00', 1001);*/
 
-INSERT INTO DISHS (NAME, RESTAURANT_ID, PRICE)
-VALUES ('Каша манная', 1000, 80),
-       ('Греческий салат', 1001, 150),
-       ('Каша гречневая', 1000, 100),
-       ('Омары', 1001, 400);
+INSERT INTO DISHS (NAME, RESTAURANT_ID, PRICE, enabled)
+VALUES ('Каша манная', 1000, 80, true ),
+       ('Греческий салат', 1001, 150,  true),
+       ('Каша гречневая', 1000, 100,  true),
+       ('Омары', 1001, 400,  true),
+       ('Артишоки', 1001, 320, false);
 
 INSERT INTO VOTES (DATE_TIME, USER_ID, RESTAURANT_ID)
 VALUES ('2018-04-09 09:00:00', 1000, 1000),

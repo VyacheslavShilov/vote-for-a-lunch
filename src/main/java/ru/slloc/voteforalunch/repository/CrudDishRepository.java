@@ -22,10 +22,10 @@ public interface CrudDishRepository extends JpaRepository<Dish, Integer> {
     @Transactional
     Dish save(Dish item);
 
-    @Query("SELECT d FROM Dish d WHERE d.restaurant.id=:restaurantId ORDER BY d.name DESC")
+    @Query("SELECT d FROM Dish d WHERE d.restaurant.id=:restaurantId ORDER BY d.name")
     List<Dish> getAll(@Param("restaurantId") int restaurantId);
 
-    @Query("SELECT d FROM Dish d WHERE d.restaurant.id=:restaurantId AND d.enabled = true ORDER BY d.name DESC")
+    @Query("SELECT d FROM Dish d WHERE d.restaurant.id=:restaurantId AND d.enabled = true ORDER BY d.name")
     List<Dish> getMenu(@Param("restaurantId") int restaurantId);
 
     @Query("SELECT d FROM Dish d JOIN FETCH d.restaurant WHERE d.id = ?1 AND d.restaurant.id = ?2")
