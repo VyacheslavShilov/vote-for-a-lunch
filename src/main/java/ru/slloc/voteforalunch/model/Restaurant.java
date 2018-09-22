@@ -22,7 +22,7 @@ public class Restaurant extends AbstractNamedEntity implements HavinId {
     @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
     private boolean enabled = true;
 
-    //List of dishs
+
 
     public Restaurant() {
     }

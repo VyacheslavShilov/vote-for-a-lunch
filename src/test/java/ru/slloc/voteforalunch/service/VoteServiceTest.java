@@ -13,7 +13,7 @@ import static ru.slloc.voteforalunch.UserTestData.ADMIN_ID;
 import static ru.slloc.voteforalunch.UserTestData.USER_ID;
 import static ru.slloc.voteforalunch.VoteTestData.*;
 
-public class VoteServisTest extends AbstractServiceTest {
+public class VoteServiceTest extends AbstractServiceTest {
 
     @Autowired
     protected VoteService service;
