@@ -16,8 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static ru.slloc.voteforalunch.DishTestData.*;
 import static ru.slloc.voteforalunch.RestaurantTestData.RESTAURANT1_ID;
 import static ru.slloc.voteforalunch.RestaurantTestData.RESTAURANT2_ID;
-import static ru.slloc.voteforalunch.TestUtil.contentJson;
-import static ru.slloc.voteforalunch.TestUtil.readFromJson;
+import static ru.slloc.voteforalunch.TestUtil.*;
 
 public class AdminRestDishControllerTest extends AbstractControllerTest {
 
@@ -34,6 +33,16 @@ private DishService service;
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(contentJson(DISH1));
     }
+
+    @Test
+    void testGetAll() throws Exception {
+        mockMvc.perform(get(REST_URL + RESTAURANT2_ID  + "/dishes/"))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(contentJsonArray(DISH5, DISH4, DISH2));
+    }
+
 
     @Test
     void testDelete() throws Exception {
