@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping(AdminRestDishController.REST_URL)
 public class AdminRestDishController  {
 
-    static final String REST_URL = "/admin/restaurants/{id}/dishes";
+    static final String REST_URL = "/admin/restaurants";
 
     @Autowired
     private RestaurantService restaurantService;
@@ -25,34 +25,34 @@ public class AdminRestDishController  {
     @Autowired
     private DishService dishService;
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}/dishes", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Dish> getAll(@PathVariable("id") int restaurantId) {
         return dishService.getAll(restaurantId);
     }
 
-    @GetMapping(value = "/menu", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}/dishes/menu", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Dish> getMenu(@PathVariable("id") int restaurantId) {
         return dishService.getMenu(restaurantId);
     }
 
-    @GetMapping(value = "/{dish_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}/dishes/{dish_id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Dish get( @PathVariable("dish_id") int id, @PathVariable("id") int restaurantId) {
         return dishService.get(id ,restaurantId);
     }
 
-    @DeleteMapping("/{dish_id}")
+    @DeleteMapping("/{id}/dishes/{dish_id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("dish_id") int id, @PathVariable("id") int restaurantId) {
         dishService.delete(id, restaurantId);
     }
 
 
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}/dishes", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void update(@RequestBody Dish dish, @PathVariable("id") int restaurantId) {
         dishService.update(dish, restaurantId);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/{id}/dishes", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Dish> createWithLocation(@RequestBody Dish dish, @PathVariable("id") int restaurantId) {
         Dish created = dishService.create(dish, restaurantId);
 
