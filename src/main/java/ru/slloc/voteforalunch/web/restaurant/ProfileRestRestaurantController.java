@@ -32,7 +32,7 @@ public class ProfileRestRestaurantController extends AbstractRestaurantControlle
     }
 
     @Override
-    @GetMapping(value = "/{id}/get_menu", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}/menu", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Dish> getMenu(@PathVariable("id") int id) {
         return super.getMenu(id);
     }

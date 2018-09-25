@@ -1,5 +1,6 @@
 package ru.slloc.voteforalunch;
 
+import org.springframework.test.web.servlet.ResultMatcher;
 import ru.slloc.voteforalunch.model.Vote;
 
 import java.time.LocalDate;
@@ -10,11 +11,13 @@ import java.util.List;
 
 import static java.time.LocalDateTime.of;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static ru.slloc.voteforalunch.RestaurantTestData.RESTAURANT1;
 import static ru.slloc.voteforalunch.RestaurantTestData.RESTAURANT2;
 import static ru.slloc.voteforalunch.UserTestData.*;
 import static ru.slloc.voteforalunch.model.Vote.END_TIME_FOR_VOTE;
 import static ru.slloc.voteforalunch.model.Vote.START_VOTE_SEQ;
+import static ru.slloc.voteforalunch.web.json.JsonUtil.writeIgnoreProps;
 
 
 public class VoteTestData {
@@ -69,5 +72,13 @@ public class VoteTestData {
 
     public static void assertMatch(Iterable<Vote> actual, Iterable<Vote> expected) {
         assertThat(actual).usingElementComparatorIgnoringFields("user").isEqualTo(expected);
+    }
+
+    public static ResultMatcher contentJson(Vote... expected) {
+        return content().json(writeIgnoreProps(Arrays.asList(expected), "registered"));
+    }
+
+    public static ResultMatcher contentJson(Vote expected) {
+        return content().json(writeIgnoreProps(expected, "registered"));
     }
 }

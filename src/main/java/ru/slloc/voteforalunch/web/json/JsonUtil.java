@@ -52,10 +52,15 @@ public class JsonUtil {
         return writeValue(map);
     }
 
+
+    //добавлено рекурсивное удаление поля registered для прохождения тестов.
     private static <T> Map<String, Object> getAsMapWithIgnore(T obj, String[] ignoreProps) {
         Map<String, Object> map = getMapper().convertValue(obj, new TypeReference<Map<String, Object>>() {});
         for (String prop : ignoreProps) {
             map.remove(prop);
+        }
+        if (map.containsKey("user")){
+            map.put("user",getAsMapWithIgnore(map.get("user"), ignoreProps) );
         }
         return map;
     }
