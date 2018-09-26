@@ -1,6 +1,8 @@
 package ru.slloc.voteforalunch.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.slloc.voteforalunch.model.Restaurant;
@@ -34,14 +36,14 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 
 
-   // @CacheEvict(value = "restaurants", allEntries = true)
+    @CacheEvict(value = "restaurants", allEntries = true)
     @Override
     public Restaurant create(Restaurant restaurant) {
         Assert.notNull(restaurant, "Restaurant must not be null");
         return restaurantRepository.save(restaurant);
     }
 
-  //  @CacheEvict(value = "restaurants", allEntries = true)
+    @CacheEvict(value = "restaurants", allEntries = true)
     @Override
     public void delete(int id) throws NotFoundException {
         checkNotFoundWithId(restaurantRepository.delete(id), id);
@@ -92,13 +94,13 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
 
-    //  @Cacheable("restaurants")
+    @Cacheable("restaurants")
     @Override
     public List<Restaurant> getAll() {
         return restaurantRepository.getAll();
     }
 
-  //  @CacheEvict(value = "restaurants", allEntries = true)
+    @CacheEvict(value = "restaurants", allEntries = true)
     @Override
     public void update(Restaurant restaurant) {
         Assert.notNull(restaurant, "restaurant must not be null");
