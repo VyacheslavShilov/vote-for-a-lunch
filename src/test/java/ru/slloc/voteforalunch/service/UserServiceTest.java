@@ -1,7 +1,9 @@
 package ru.slloc.voteforalunch.service;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.dao.DataAccessException;
 import ru.slloc.voteforalunch.VoteTestData;
 import ru.slloc.voteforalunch.model.Role;
@@ -19,6 +21,14 @@ public class UserServiceTest extends AbstractServiceTest{
 
     @Autowired
     private UserService service;
+
+    @Autowired
+    private CacheManager cacheManager;
+
+    @BeforeEach
+    public void setUp() throws Exception {
+        cacheManager.getCache("users").clear();
+    }
 
     @Test
     public void create() throws Exception {
