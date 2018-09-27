@@ -8,6 +8,7 @@ import org.springframework.dao.DataAccessException;
 import ru.slloc.voteforalunch.VoteTestData;
 import ru.slloc.voteforalunch.model.Role;
 import ru.slloc.voteforalunch.model.User;
+import ru.slloc.voteforalunch.repository.JpaUtil;
 import ru.slloc.voteforalunch.util.exception.NotFoundException;
 
 import java.util.Collections;
@@ -25,9 +26,14 @@ public class UserServiceTest extends AbstractServiceTest{
     @Autowired
     private CacheManager cacheManager;
 
+    @Autowired
+    protected JpaUtil jpaUtil;
+
+
     @BeforeEach
     public void setUp() throws Exception {
         cacheManager.getCache("users").clear();
+        jpaUtil.clear2ndLevelHibernateCache();
     }
 
     @Test

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import ru.slloc.voteforalunch.service.UserService;
 import ru.slloc.voteforalunch.web.AbstractControllerTest;
+import ru.slloc.voteforalunch.repository.JpaUtil;
 
 public class AbstractControllerUserTest extends AbstractControllerTest {
 
@@ -14,11 +15,14 @@ public class AbstractControllerUserTest extends AbstractControllerTest {
     @Autowired
     private CacheManager cacheManager;
 
+    @Autowired
+    private JpaUtil jpaUtil;
+
     @BeforeEach
     void setUp() {
         cacheManager.getCache("users").clear();
-        /*if (jpaUtil != null) {
+        if (jpaUtil != null) {
             jpaUtil.clear2ndLevelHibernateCache();
-        }*/
+        }
     }
 }
