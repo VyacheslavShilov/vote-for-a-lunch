@@ -9,6 +9,7 @@ import ru.slloc.voteforalunch.util.exception.NotFoundException;
 import ru.slloc.voteforalunch.util.exception.TimeForVoteIsFinishedException;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -32,6 +33,10 @@ public class VoteServiceImpl implements VoteService {
 
     @Override
     public void delete(int id, int userId) throws NotFoundException {
+       /* Vote vote = get(id, userId);
+        LocalDateTime endDateTimeForVoteModification = LocalDateTime.of(vote.getDateTime().toLocalDate(), END_TIME_FOR_VOTE);
+        if (LocalDateTime.now().isAfter(endDateTimeForVoteModification) ) throw new TimeForVoteIsFinishedException("Time for delete vote is finished");*/
+
         checkNotFoundWithId(repository.delete(id, userId), id);
     }
 

@@ -24,6 +24,13 @@ public class VoteServiceTest extends AbstractServiceTest {
         assertMatch(service.getAll(USER_ID), VOTE7, VOTE4);
     }
 
+   /* @Test
+    public void deleteAfterEndTimeForVote() throws Exception {
+
+        assertThrows(TimeForVoteIsFinishedException.class, () -> service.delete(VOTE1_ID, USER_ID));
+      //  assertMatch(service.getAll(USER_ID), VOTE7, VOTE4);
+    }*/
+
     @Test
     public void deleteNotFound() throws Exception {
        // thrown.expect(NotFoundException.class);
