@@ -12,8 +12,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.slloc.voteforalunch.RestaurantTestData.*;
-import static ru.slloc.voteforalunch.TestUtil.contentJson;
-import static ru.slloc.voteforalunch.TestUtil.contentJsonArray;
+import static ru.slloc.voteforalunch.TestUtil.*;
+import static ru.slloc.voteforalunch.UserTestData.ADMIN;
+import static ru.slloc.voteforalunch.UserTestData.USER;
 
 public class AdminRestRestaurantControllerTest extends AbstractControllerRestaurantTest {
     private static final String REST_URL = AdminRestRestaurantController.REST_URL + '/';
@@ -21,7 +22,7 @@ public class AdminRestRestaurantControllerTest extends AbstractControllerRestaur
     @Test
     void testGetAll() throws Exception {
         TestUtil.print(
-                mockMvc.perform(get(REST_URL))
+                mockMvc.perform(get(REST_URL).with(userAuth(ADMIN)))
                         .andExpect(status().isOk())
                         .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                         .andExpect(contentJsonArray(RESTAURANT1, RESTAURANT2))
@@ -30,7 +31,7 @@ public class AdminRestRestaurantControllerTest extends AbstractControllerRestaur
 
     @Test
     void testGet() throws Exception {
-        mockMvc.perform(get(REST_URL + RESTAURANT2_ID))
+        mockMvc.perform(get(REST_URL + RESTAURANT2_ID).with(userAuth(ADMIN)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 // https://jira.spring.io/browse/SPR-14472
@@ -41,7 +42,7 @@ public class AdminRestRestaurantControllerTest extends AbstractControllerRestaur
     @Test
     void testGetWinnerWithData() throws Exception{
         mockMvc.perform(get(REST_URL + "get_winner")
-                .param("date", "2018-04-09"))
+                .param("date", "2018-04-09").with(userAuth(ADMIN)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(contentJsonArray(RESTAURANT1));
@@ -49,7 +50,7 @@ public class AdminRestRestaurantControllerTest extends AbstractControllerRestaur
 
     @Test
     void testDelete() throws Exception {
-        mockMvc.perform(delete(REST_URL + RESTAURANT1_ID))
+        mockMvc.perform(delete(REST_URL + RESTAURANT1_ID).with(userAuth(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isNoContent());
         assertMatch(restaurantService.getAll(), RESTAURANT2);
@@ -57,7 +58,7 @@ public class AdminRestRestaurantControllerTest extends AbstractControllerRestaur
 
     @Test
     void testGetByName() throws Exception {
-        mockMvc.perform(get(REST_URL + "by?name=" + RESTAURANT1.getName()))
+        mockMvc.perform(get(REST_URL + "by?name=" + RESTAURANT1.getName()).with(userAuth(ADMIN)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(contentJson(RESTAURANT1));
@@ -69,7 +70,7 @@ public class AdminRestRestaurantControllerTest extends AbstractControllerRestaur
         updated.setName("UpdatedName");
         mockMvc.perform(put(REST_URL + RESTAURANT1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(updated)))
+                .content(JsonUtil.writeValue(updated)).with(userAuth(ADMIN)))
                 .andExpect(status().isOk());
 
         assertMatch(restaurantService.get(RESTAURANT1_ID), updated);
@@ -80,7 +81,7 @@ public class AdminRestRestaurantControllerTest extends AbstractControllerRestaur
         Restaurant expected = new Restaurant(null, "NewRest");
         ResultActions action = mockMvc.perform(post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(expected)))
+                .content(JsonUtil.writeValue(expected)).with(userAuth(ADMIN)))
                 .andExpect(status().isCreated());
 
         Restaurant returned = TestUtil.readFromJson(action, Restaurant.class);
@@ -88,5 +89,18 @@ public class AdminRestRestaurantControllerTest extends AbstractControllerRestaur
 
         assertMatch(returned, expected);
         assertMatch(restaurantService.getAll(), expected, RESTAURANT2, RESTAURANT1);
+    }
+
+    @Test
+    public void testGetUnAuth() throws Exception {
+        mockMvc.perform(get(REST_URL))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    public void testGetForbidden() throws Exception {
+        mockMvc.perform(get(REST_URL)
+                .with(userHttpBasic(USER)))
+                .andExpect(status().isForbidden());
     }
 }

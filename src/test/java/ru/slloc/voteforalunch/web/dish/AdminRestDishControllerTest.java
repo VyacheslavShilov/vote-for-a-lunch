@@ -17,6 +17,8 @@ import static ru.slloc.voteforalunch.DishTestData.*;
 import static ru.slloc.voteforalunch.RestaurantTestData.RESTAURANT1_ID;
 import static ru.slloc.voteforalunch.RestaurantTestData.RESTAURANT2_ID;
 import static ru.slloc.voteforalunch.TestUtil.*;
+import static ru.slloc.voteforalunch.UserTestData.ADMIN;
+import static ru.slloc.voteforalunch.UserTestData.USER;
 
 public class AdminRestDishControllerTest extends AbstractControllerTest {
 
@@ -27,7 +29,7 @@ private DishService service;
 
     @Test
     void testGet() throws Exception {
-        mockMvc.perform(get(REST_URL + RESTAURANT1_ID  + "/dishes/" + DISH1_ID))
+        mockMvc.perform(get(REST_URL + RESTAURANT1_ID  + "/dishes/" + DISH1_ID).with(userAuth(ADMIN)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -36,7 +38,7 @@ private DishService service;
 
     @Test
     void testGetAll() throws Exception {
-        mockMvc.perform(get(REST_URL + RESTAURANT2_ID  + "/dishes/"))
+        mockMvc.perform(get(REST_URL + RESTAURANT2_ID  + "/dishes/").with(userAuth(ADMIN)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -46,7 +48,7 @@ private DishService service;
 
     @Test
     void testDelete() throws Exception {
-        mockMvc.perform(delete(REST_URL + RESTAURANT1_ID  + "/dishes/" + DISH3_ID))
+        mockMvc.perform(delete(REST_URL + RESTAURANT1_ID  + "/dishes/" + DISH3_ID).with(userAuth(ADMIN)))
                 .andExpect(status().isNoContent());
         assertMatch(service.getAll(RESTAURANT1_ID), DISH1);
     }
@@ -57,7 +59,7 @@ private DishService service;
 
         mockMvc.perform(put(REST_URL + RESTAURANT1_ID  + "/dishes")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(updated)))
+                .content(JsonUtil.writeValue(updated)).with(userAuth(ADMIN)))
                 .andExpect(status().isOk());
 
         assertMatch(service.get(DISH1_ID, RESTAURANT1_ID), updated);
@@ -69,13 +71,26 @@ private DishService service;
 
         ResultActions action = mockMvc.perform(post(REST_URL + RESTAURANT1_ID  + "/dishes")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(created)));
+                .content(JsonUtil.writeValue(created)).with(userAuth(ADMIN)));
 
         Dish returned = readFromJson(action, Dish.class);
         created.setId(returned.getId());
 
         assertMatch(returned, created);
         assertMatch(service.getAll(RESTAURANT1_ID), created, DISH3, DISH1);
+    }
+
+    @Test
+    public void testGetUnAuth() throws Exception {
+        mockMvc.perform(get(REST_URL))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    public void testGetForbidden() throws Exception {
+        mockMvc.perform(get(REST_URL)
+                .with(userHttpBasic(USER)))
+                .andExpect(status().isForbidden());
     }
 
 }

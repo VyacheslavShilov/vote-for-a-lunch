@@ -14,6 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.slloc.voteforalunch.TestUtil.readFromJson;
+import static ru.slloc.voteforalunch.TestUtil.userHttpBasic;
 import static ru.slloc.voteforalunch.VoteTestData.*;
 import static ru.slloc.voteforalunch.UserTestData.*;
 
@@ -26,16 +27,24 @@ public class ProfileRestVoteControllerTest extends AbstractControllerTest {
 
     @Test
     void testGet() throws Exception {
-        mockMvc.perform(get(REST_URL + VOTE1_ID))
+        mockMvc.perform(get(REST_URL + VOTE1_ID).with(userHttpBasic(USER)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(contentJson(VOTE1));
     }
 
+
+    @Test
+    public void testGetUnAuth() throws Exception {
+        mockMvc.perform(get(REST_URL + VOTE1_ID))
+                .andExpect(status().isUnauthorized());
+    }
+
+
     @Test
     void testGetAll() throws Exception {
-        mockMvc.perform(get(REST_URL))
+        mockMvc.perform(get(REST_URL).with(userHttpBasic(USER)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -44,7 +53,7 @@ public class ProfileRestVoteControllerTest extends AbstractControllerTest {
 
     @Test
     void testDelete() throws Exception {
-        mockMvc.perform(delete(REST_URL + VOTE1_ID))
+        mockMvc.perform(delete(REST_URL + VOTE1_ID).with(userHttpBasic(USER)))
                 .andExpect(status().isNoContent());
         assertMatch(voteService.getAll(USER_ID), VOTE7, VOTE4);
     }
@@ -55,7 +64,7 @@ public class ProfileRestVoteControllerTest extends AbstractControllerTest {
 
         mockMvc.perform(put(REST_URL + VOTE1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(updated)))
+                .content(JsonUtil.writeValue(updated)).with(userHttpBasic(USER)))
                 .andExpect(status().isOk());
 
         assertMatch(voteService.get(VOTE1_ID, USER_ID), updated);
@@ -67,7 +76,7 @@ public class ProfileRestVoteControllerTest extends AbstractControllerTest {
 
         ResultActions action = mockMvc.perform(post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(created)));
+                .content(JsonUtil.writeValue(created)).with(userHttpBasic(USER)));
 
         Vote returned = readFromJson(action, Vote.class);
         created.setId(returned.getId());
@@ -75,5 +84,7 @@ public class ProfileRestVoteControllerTest extends AbstractControllerTest {
         assertMatch(returned, created);
         assertMatch(voteService.getAll(USER_ID), created, VOTE7, VOTE4, VOTE1);
     }
+
+
 
 }

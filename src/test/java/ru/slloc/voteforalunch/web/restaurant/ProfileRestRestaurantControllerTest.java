@@ -11,6 +11,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static ru.slloc.voteforalunch.RestaurantTestData.*;
 import static ru.slloc.voteforalunch.TestUtil.contentJson;
 import static ru.slloc.voteforalunch.TestUtil.contentJsonArray;
+import static ru.slloc.voteforalunch.TestUtil.userHttpBasic;
+import static ru.slloc.voteforalunch.UserTestData.USER;
+
 public class ProfileRestRestaurantControllerTest extends AbstractControllerRestaurantTest{
 
     private static final String REST_URL = ProfileRestRestaurantController.REST_URL + '/';
@@ -18,7 +21,7 @@ public class ProfileRestRestaurantControllerTest extends AbstractControllerResta
     @Test
     void testGetAll() throws Exception {
         TestUtil.print(
-                mockMvc.perform(get(REST_URL))
+                mockMvc.perform(get(REST_URL).with(userHttpBasic(USER)))
                         .andExpect(status().isOk())
                         .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                         .andExpect(contentJsonArray(RESTAURANT1, RESTAURANT2))
@@ -27,7 +30,7 @@ public class ProfileRestRestaurantControllerTest extends AbstractControllerResta
 
     @Test
     void testGet() throws Exception {
-        mockMvc.perform(get(REST_URL + RESTAURANT2_ID))
+        mockMvc.perform(get(REST_URL + RESTAURANT2_ID).with(userHttpBasic(USER)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 // https://jira.spring.io/browse/SPR-14472
@@ -38,10 +41,15 @@ public class ProfileRestRestaurantControllerTest extends AbstractControllerResta
     @Test
     void testGetWinnerWithData() throws Exception{
         mockMvc.perform(get(REST_URL + "get_winner")
-        .param("date", "2018-04-09"))
+        .param("date", "2018-04-09").with(userHttpBasic(USER)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(contentJsonArray(RESTAURANT1));
     }
 
+    @Test
+    public void testGetUnAuth() throws Exception {
+        mockMvc.perform(get(REST_URL))
+                .andExpect(status().isUnauthorized());
+    }
 }
