@@ -5,6 +5,7 @@ package ru.slloc.voteforalunch;
 import org.springframework.test.web.servlet.ResultMatcher;
 import ru.slloc.voteforalunch.model.Role;
 import ru.slloc.voteforalunch.model.User;
+import ru.slloc.voteforalunch.web.json.JsonUtil;
 import ru.slloc.voteforalunch.web.json.JsonUtil.*;
 
 
@@ -42,5 +43,9 @@ public class UserTestData {
 
     public static ResultMatcher contentJson(User expected) {
         return content().json(writeIgnoreProps(expected, "registered", "password"));
+    }
+
+    public static String jsonWithPassword(User user, String passw) {
+        return JsonUtil.writeAdditionProps(user, "password", passw);
     }
 }
