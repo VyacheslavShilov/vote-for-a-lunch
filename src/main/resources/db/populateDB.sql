@@ -20,9 +20,9 @@ ALTER SEQUENCE VOTES_SEQ
 RESTART WITH 1000;
 
 INSERT INTO users (name, email, password)
-VALUES ('User', 'user@yandex.ru', 'password'),
-       ('User2', 'user2@yandex.ru', 'password2'),
-       ('Admin', 'admin@gmail.com', 'admin');
+VALUES ('User', 'user@yandex.ru', '{noop}password'),
+       ('User2', 'user2@yandex.ru', '{noop}password2'),
+       ('Admin', 'admin@gmail.com', '{noop}admin');
 
 INSERT INTO user_roles (role, user_id)
 VALUES ('ROLE_USER', 1000),
