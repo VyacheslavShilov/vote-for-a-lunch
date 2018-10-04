@@ -39,6 +39,13 @@ public class ProfileRestRestaurantControllerTest extends AbstractControllerResta
     }
 
     @Test
+    public void testGetNotFound() throws Exception {
+        mockMvc.perform(get(REST_URL + 8)
+                .with(userHttpBasic(USER)))
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
     void testGetWinnerWithData() throws Exception{
         mockMvc.perform(get(REST_URL + "get_winner")
         .param("date", "2018-04-09").with(userHttpBasic(USER)))

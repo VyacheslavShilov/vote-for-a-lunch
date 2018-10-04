@@ -40,6 +40,14 @@ public class AdminRestRestaurantControllerTest extends AbstractControllerRestaur
     }
 
     @Test
+    public void testGetNotFound() throws Exception {
+        mockMvc.perform(get(REST_URL + 4)
+                .with(userHttpBasic(ADMIN)))
+                .andExpect(status().isUnprocessableEntity())
+                .andDo(print());
+    }
+
+    @Test
     void testGetWinnerWithData() throws Exception{
         mockMvc.perform(get(REST_URL + "get_winner")
                 .param("date", "2018-04-09").with(userAuth(ADMIN)))
@@ -54,6 +62,14 @@ public class AdminRestRestaurantControllerTest extends AbstractControllerRestaur
                 .andDo(print())
                 .andExpect(status().isNoContent());
         assertMatch(restaurantService.getAll(), RESTAURANT2);
+    }
+
+    @Test
+    public void testDeleteNotFound() throws Exception {
+        mockMvc.perform(delete(REST_URL + 4)
+                .with(userHttpBasic(ADMIN)))
+                .andExpect(status().isUnprocessableEntity())
+                .andDo(print());
     }
 
     @Test

@@ -37,6 +37,14 @@ private DishService service;
     }
 
     @Test
+    public void testGetNotFound() throws Exception {
+        mockMvc.perform(get(REST_URL + RESTAURANT1_ID  + "/dishes/" + 123)
+                .with(userHttpBasic(ADMIN)))
+                .andExpect(status().isUnprocessableEntity())
+                .andDo(print());
+    }
+
+    @Test
     void testGetAll() throws Exception {
         mockMvc.perform(get(REST_URL + RESTAURANT2_ID  + "/dishes/").with(userAuth(ADMIN)))
                 .andExpect(status().isOk())
@@ -51,6 +59,14 @@ private DishService service;
         mockMvc.perform(delete(REST_URL + RESTAURANT1_ID  + "/dishes/" + DISH3_ID).with(userAuth(ADMIN)))
                 .andExpect(status().isNoContent());
         assertMatch(service.getAll(RESTAURANT1_ID), DISH1);
+    }
+
+    @Test
+    public void testDeleteNotFound() throws Exception {
+        mockMvc.perform(delete(REST_URL + RESTAURANT1_ID  + "/dishes/" + 123)
+                .with(userHttpBasic(ADMIN)))
+                .andExpect(status().isUnprocessableEntity())
+                .andDo(print());
     }
 
     @Test

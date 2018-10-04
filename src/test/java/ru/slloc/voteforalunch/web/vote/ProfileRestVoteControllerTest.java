@@ -34,6 +34,13 @@ public class ProfileRestVoteControllerTest extends AbstractControllerTest {
                 .andExpect(contentJson(VOTE1));
     }
 
+    @Test
+    public void testGetNotFound() throws Exception {
+        mockMvc.perform(get(REST_URL + 15)
+                .with(userHttpBasic(USER)))
+                .andExpect(status().isUnprocessableEntity());
+    }
+
 
     @Test
     public void testGetUnAuth() throws Exception {
@@ -56,6 +63,14 @@ public class ProfileRestVoteControllerTest extends AbstractControllerTest {
         mockMvc.perform(delete(REST_URL + VOTE1_ID).with(userHttpBasic(USER)))
                 .andExpect(status().isNoContent());
         assertMatch(voteService.getAll(USER_ID), VOTE7, VOTE4);
+    }
+
+    @Test
+    public void testDeleteNotFound() throws Exception {
+        mockMvc.perform(delete(REST_URL + 15)
+                .with(userHttpBasic(USER)))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
     }
 
     @Test
