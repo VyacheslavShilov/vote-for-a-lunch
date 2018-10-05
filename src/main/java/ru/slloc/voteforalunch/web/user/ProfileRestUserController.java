@@ -2,8 +2,13 @@ package ru.slloc.voteforalunch.web.user;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.slloc.voteforalunch.model.User;
+import ru.slloc.voteforalunch.util.UserUtil;
+
+import java.net.URI;
 
 import static ru.slloc.voteforalunch.web.SecurityUtil.authUserId;
 
@@ -26,6 +31,17 @@ public class ProfileRestUserController extends AbstractUserController {
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void update(@RequestBody User user) {
         super.update(user, authUserId());
+    }
+
+    @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public ResponseEntity<User> register(@RequestBody User user) {
+        User created = super.create(user);
+        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path(REST_URL + "/{id}")
+                .buildAndExpand(created.getId()).toUri();
+
+        return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
     @GetMapping(value = "/text")
