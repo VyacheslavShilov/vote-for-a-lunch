@@ -1,6 +1,5 @@
 DELETE
 FROM dishs;
--- DELETE FROM menus;
 DELETE
 FROM restaurants;
 DELETE
