@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "dishs", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "restaurant_id"}, name = "dishs_unique_name_restaurant_id_idx")})
-public class Dish extends AbstractNamedEntity implements HavinId {
+public class Dish extends AbstractNamedEntity implements HasId {
     public static final int START_DISH_SEQ = 1000;
 
     @Id

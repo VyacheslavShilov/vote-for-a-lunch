@@ -1,7 +1,7 @@
 package ru.slloc.voteforalunch.util;
 
 
-import ru.slloc.voteforalunch.model.HavinId;
+import ru.slloc.voteforalunch.model.HasId;
 import ru.slloc.voteforalunch.util.exception.IllegalRequestDataException;
 import ru.slloc.voteforalunch.util.exception.NotFoundException;
 
@@ -29,7 +29,7 @@ public class ValidationUtil {
         }
     }
 
-    public static void checkNew(HavinId entity) {
+    public static void checkNew(HasId entity) {
         if (!entity.isNew()) {
             throw new IllegalRequestDataException(entity + " must be new (id=null)");
         }
@@ -41,7 +41,7 @@ public class ValidationUtil {
         }
     }*/
 
-    public static void assureIdConsistent(HavinId entity, int id) {
+    public static void assureIdConsistent(HasId entity, int id) {
 //      http://stackoverflow.com/a/32728226/548473
         if (entity.isNew()) {
             entity.setId(id);

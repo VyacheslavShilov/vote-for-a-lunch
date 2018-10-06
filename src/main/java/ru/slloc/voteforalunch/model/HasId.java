@@ -1,6 +1,6 @@
 package ru.slloc.voteforalunch.model;
 
-public interface HavinId {
+public interface HasId {
     public boolean isNew();
 
     public void setId(Integer id);

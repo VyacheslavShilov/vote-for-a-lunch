@@ -18,7 +18,7 @@ import java.util.*;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")})
-public class User extends AbstractNamedEntity implements HavinId {
+public class User extends AbstractNamedEntity implements HasId {
     public static final int START_USER_SEQ = 1000;
 
     @Id

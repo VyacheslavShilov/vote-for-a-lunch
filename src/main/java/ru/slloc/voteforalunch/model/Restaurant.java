@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "restaurants", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "uniqueConstraints_unique_name_idx")})
-public class Restaurant extends AbstractNamedEntity implements HavinId {
+public class Restaurant extends AbstractNamedEntity implements HasId {
     public static final int START_RESTAURANT_SEQ = 1000;
 
     @Id

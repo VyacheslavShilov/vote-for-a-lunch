@@ -3,8 +3,6 @@ package ru.slloc.voteforalunch.model;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.format.annotation.DateTimeFormat;
-import ru.slloc.voteforalunch.util.DateTimeUtil;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,7 +12,7 @@ import java.time.LocalTime;
 @Entity
 @Table(name = "votes", uniqueConstraints = {@UniqueConstraint(columnNames = "date_time", name = "user_id")})
 //@JsonAutoDetect(fieldVisibility = ANY, getterVisibility = NONE, isGetterVisibility = NONE, setterVisibility = NONE)
-public class Vote implements HavinId {
+public class Vote implements HasId {
     public static final int START_VOTE_SEQ = 1000;
     public static final LocalTime END_TIME_FOR_VOTE = LocalTime.of(11, 00);
 
