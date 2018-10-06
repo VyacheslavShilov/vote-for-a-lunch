@@ -6,10 +6,10 @@ import ru.slloc.voteforalunch.model.User;
 
 
 public class UserUtil {
+    private UserUtil() {
+    }
 
-
-
-    /*public static User createNewFromTo(UserTo newUser) {
+        /*public static User createNewFromTo(UserTo newUser) {
         return new User(null, newUser.getName(), newUser.getEmail().toLowerCase(), newUser.getPassword(), newUser.getCaloriesPerDay(), Role.ROLE_USER);
     }
 

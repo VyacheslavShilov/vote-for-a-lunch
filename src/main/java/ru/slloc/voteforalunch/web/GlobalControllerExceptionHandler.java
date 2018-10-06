@@ -26,7 +26,7 @@ public class GlobalControllerExceptionHandler {
         // Interceptor is not invoked, put userTo
         AuthorizedUser authorizedUser = SecurityUtil.safeGet();
         if (authorizedUser != null) {
-            mav.addObject("userTo", authorizedUser.getUser());
+            mav.addObject("user", authorizedUser.getUser());
         }
         return mav;
     }

@@ -3,7 +3,6 @@ package ru.slloc.voteforalunch.repository;
 import ru.slloc.voteforalunch.model.Vote;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public interface VoteRepository {

@@ -1,7 +1,6 @@
 package ru.slloc.voteforalunch.service;
 
 import ru.slloc.voteforalunch.model.Restaurant;
-import ru.slloc.voteforalunch.model.User;
 import ru.slloc.voteforalunch.util.exception.NotFoundException;
 
 import java.time.LocalDate;

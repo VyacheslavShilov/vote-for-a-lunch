@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.slloc.voteforalunch.model.User;
-import ru.slloc.voteforalunch.util.UserUtil;
 
 import java.net.URI;
 

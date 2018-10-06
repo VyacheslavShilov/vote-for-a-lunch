@@ -9,8 +9,6 @@ import ru.slloc.voteforalunch.util.exception.NotFoundException;
 import ru.slloc.voteforalunch.util.exception.TimeForVoteIsFinishedException;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 import static ru.slloc.voteforalunch.model.Vote.END_TIME_FOR_VOTE;

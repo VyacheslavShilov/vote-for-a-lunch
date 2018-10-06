@@ -1,7 +1,6 @@
 package ru.slloc.voteforalunch.repository;
 
 import ru.slloc.voteforalunch.model.Restaurant;
-import ru.slloc.voteforalunch.model.User;
 
 import java.util.List;
 

@@ -7,10 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.slloc.voteforalunch.model.Restaurant;
 
-
 import java.net.URI;
-import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @RequestMapping(AdminRestRestaurantController.REST_URL)

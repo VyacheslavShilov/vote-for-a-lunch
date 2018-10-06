@@ -19,8 +19,8 @@ public class AdminRestDishController  {
 
     static final String REST_URL = "/admin/restaurants";
 
-    @Autowired
-    private RestaurantService restaurantService;
+   /* @Autowired
+    private RestaurantService restaurantService;*/
 
     @Autowired
     private DishService dishService;

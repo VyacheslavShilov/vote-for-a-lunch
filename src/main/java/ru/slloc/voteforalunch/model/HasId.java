@@ -1,10 +1,10 @@
 package ru.slloc.voteforalunch.model;
 
 public interface HasId {
-    public boolean isNew();
+     boolean isNew();
 
-    public void setId(Integer id);
+     void setId(Integer id);
 
-    public Integer getId();
+     Integer getId();
 
 }

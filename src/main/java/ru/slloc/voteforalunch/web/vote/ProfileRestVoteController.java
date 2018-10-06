@@ -21,7 +21,7 @@ import static ru.slloc.voteforalunch.util.ValidationUtil.checkNew;
 @RestController
 @RequestMapping(ProfileRestVoteController.REST_URL)
 public class ProfileRestVoteController {
-    protected final Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     public static final String REST_URL = "/profile/votes";
 

@@ -1,14 +1,11 @@
 package ru.slloc.voteforalunch.model;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-
-import javax.persistence.*;
-
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-
-import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
-import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 
 @MappedSuperclass
 @Access(AccessType.FIELD)
