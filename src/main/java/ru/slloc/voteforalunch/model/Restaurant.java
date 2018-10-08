@@ -22,7 +22,9 @@ public class Restaurant extends AbstractNamedEntity implements HasId {
     @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
     private boolean enabled = true;
 
-
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")//, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OrderBy("name DESC")
+    protected List<Dish> dishes;
 
     public Restaurant() {
     }
@@ -43,9 +45,8 @@ public class Restaurant extends AbstractNamedEntity implements HasId {
         this.id = id;
         this.enabled = true;
     }
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")//, cascade = CascadeType.REMOVE, orphanRemoval = true)
-    @OrderBy("name DESC")
-    protected List<Dish> dishes;
+
+
 
     @Override
     public Integer getId() {
